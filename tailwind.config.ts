@@ -9,10 +9,6 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        body: ['Alegreya', 'serif'],
-        headline: ['Belleza', 'sans-serif'],
-      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -87,53 +83,10 @@ export default {
             height: '0',
           },
         },
-        sparkle: {
-          '0%, 100%': { opacity: '0', transform: 'scale(0.5)' },
-          '25%': { opacity: '1', transform: 'scale(1.2)' },
-          '50%': { opacity: '0', transform: 'scale(0.5)' },
-        },
-        'bounce-in': {
-          '0%': {
-            opacity: '0',
-            transform: 'translateY(-20px) scale(0.8)',
-          },
-          '70%': {
-            transform: 'translateY(5px) scale(1.05)',
-          },
-          '100%': {
-            opacity: '1',
-            transform: 'translateY(0) scale(1)',
-          },
-        },
-        'float-up': {
-          '0%': { transform: 'translateY(100vh)' },
-          '100%': { transform: 'translateY(-200px)' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px) rotate(-3deg)' },
-          '50%': { transform: 'translateY(-25px) rotate(3deg)' },
-        },
-        'candle-flicker': {
-          '0%, 100%': { opacity: '1', transform: 'scaleY(1) rotate(0)' },
-          '50%': { opacity: '0.8', transform: 'scaleY(0.95) rotate(1.5deg)' },
-        },
-        'confetti-fall': {
-          '0%': {
-            transform: 'translateY(-10vh) rotateZ(0deg)',
-            opacity: '1',
-          },
-          '100%': {
-            transform: 'translateY(110vh) rotateZ(720deg)',
-            opacity: '0',
-          },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        sparkle: 'sparkle 2.5s ease-in-out infinite',
-        'bounce-in': 'bounce-in 0.6s ease-out forwards',
-        'candle-flicker': 'candle-flicker 1.5s ease-in-out infinite',
       },
     },
   },
