@@ -15,7 +15,7 @@ export default function Home() {
           unoptimized
         />
         <p className="mt-4 text-2xl font-bold text-foreground">
-          Arry ye dekho kon aya hai 👀
+          ye konn hai?
         </p>
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
           <Link href="/celebrate">
