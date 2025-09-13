@@ -1,9 +1,16 @@
+"use client";
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function Home() {
+  useEffect(() => {
+    sessionStorage.setItem('visited_home', 'true');
+  }, []);
+
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden">
       <main className="relative z-10 flex flex-col items-center justify-center w-full px-4 py-8 sm:px-6 lg:px-8 min-h-screen">

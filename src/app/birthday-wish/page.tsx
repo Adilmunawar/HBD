@@ -1,10 +1,22 @@
+"use client";
+
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Home } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function BirthdayWishPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (sessionStorage.getItem('visited_home') !== 'true') {
+      router.replace('/');
+    }
+  }, [router]);
+
   const cakeImage = PlaceHolderImages.find((img) => img.id === 'cake');
 
   return (
