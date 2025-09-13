@@ -3,23 +3,23 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
-export default function ThinkingBunnyPage() {
+export default function ThinkingHarderBunnyPage() {
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden">
       <main className="relative z-10 flex flex-col items-center justify-center w-full px-4 py-8 sm:px-6 lg:px-8 min-h-screen">
         <Image
-          src="/thinking-bunny.gif"
-          alt="Bunny and chick thinking"
+          src="/thinking-harder-bunny.gif"
+          alt="Bunny thinking hard"
           width={380}
           height={380}
           unoptimized
         />
         <p className="mt-4 text-2xl font-bold text-foreground text-center">
-          Hamm kuch bhool tu nahi rahy? Aj tu 1st October haaii
+          Ammm yadd karne dain zara mujheee
         </p>
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
-          <Link href="/thinking-harder-bunny">
-            Yes, Maybe
+          <Link href="/birthday-wish">
+            Haan karro karro
             <ArrowRight />
           </Link>
         </Button>
