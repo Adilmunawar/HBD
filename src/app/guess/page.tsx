@@ -1,4 +1,7 @@
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function GuessPage() {
   return (
@@ -14,6 +17,12 @@ export default function GuessPage() {
         <p className="mt-4 text-2xl font-bold text-foreground">
           Ye to miss Samina hain
         </p>
+        <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
+          <Link href="/final">
+            Haaan mai miss samina hoon
+            <ArrowRight />
+          </Link>
+        </Button>
       </main>
     </div>
   );
