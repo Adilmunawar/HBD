@@ -19,7 +19,7 @@ export default function SurprisePage() {
         </p>
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
           <Link href="/guess">
-            lemme guess
+            guess
             <ArrowRight />
           </Link>
         </Button>
