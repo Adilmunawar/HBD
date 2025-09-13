@@ -19,7 +19,7 @@ export default function Home() {
         </p>
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
           <Link href="/celebrate">
-            Let's Go!
+            Chalo, dekhein kya hai!
             <ArrowRight />
           </Link>
         </Button>
