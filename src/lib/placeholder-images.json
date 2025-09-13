@@ -1,3 +1,10 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "cake",
+      "description": "A festive birthday cake with frosting and decorations.",
+      "imageUrl": "https://picsum.photos/seed/cake/600/400",
+      "imageHint": "birthday cake"
+    }
+  ]
 }
