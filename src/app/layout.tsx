@@ -21,10 +21,10 @@ export default function RootLayout({
       <body>
         <ClickSpark
           sparkColor="#9370DB"
-          sparkSize={8}
-          sparkRadius={25}
-          sparkCount={12}
-          duration={500}
+          sparkSize={12}
+          sparkRadius={30}
+          sparkCount={20}
+          duration={800}
         >
           {children}
         </ClickSpark>
