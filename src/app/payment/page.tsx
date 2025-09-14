@@ -4,12 +4,17 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bitcoin, Copy, CreditCard, Send, Wallet, CheckCircle, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
+import { Copy, CreditCard, Send, Wallet, CheckCircle, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 
+const BtcIcon = () => (
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="fill-current">
+        <path d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zM8.508 18.06h2.242v-2.24H8.508v2.24zm0-3.363h2.242v-6.72H8.508v6.72zm0-7.843h2.242V4.615H8.508v2.242zm3.362 11.203h2.242V15.82h-2.242v2.242zm0-3.362h2.242v-2.24h-2.242v2.24zm0-3.363h2.242v-2.24h-2.242v2.24zm0-3.362h2.242V5.73H11.87v2.242zm3.363 11.203H17.47V15.82h-2.238v2.242zm0-7.843H17.47V8.974h-2.238v2.242z"/>
+    </svg>
+);
 const EthIcon = () => (
     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="fill-current">
         <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.37 4.35h.001zM12.056 0L4.69 12.223l7.366 4.354 7.36-4.354L12.056 0z"/>
@@ -17,13 +22,13 @@ const EthIcon = () => (
 );
 const TrxIcon = () => (
     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor">
-        <path d="m18.12.353-2.344 4.322 2.33 4.323h-4.524l-2.33-4.323 2.344-4.322zm-5.025 5.56L9.48 1.583H4.957l2.33 4.332-2.33 4.323h4.524zm-.006 1.235 2.33 4.323-2.33 4.323h4.523l2.344-4.323-2.344-4.323zm-3.26 3.088-2.33 4.323L5.2 23.647h4.524l2.344-4.323-2.345-4.323z"/>
+      <path d="M2.66 11.025 12 5.64l9.34 5.385-9.34 5.385-9.34-5.385zM12 0l11.04 6.36L12 12.735.96 6.36 12 0zm0 24L.96 17.64 12 11.265l11.04 6.375L12 24z"/>
     </svg>
 );
 
 
 const cryptoOptions = [
-  { id: 'btc', name: 'Bitcoin', icon: <Bitcoin />, address: 'bc1q7vxt36yglcl0up0q4v77wc0ws2yp50h4mraq7a' },
+  { id: 'btc', name: 'Bitcoin', icon: <BtcIcon />, address: 'bc1q7vxt36yglcl0up0q4v77wc0ws2yp50h4mraq7a' },
   { id: 'eth', name: 'Ethereum', icon: <EthIcon />, address: '0x2817452fA66bFacFAD7e02703d63eDd4054A2c37' },
   { id: 'trx', name: 'Tron TRC20', icon: <TrxIcon />, address: 'TLsTFBCpErXsuMgKGLVYE2Y6z8qhhhtCvB' },
 ];
