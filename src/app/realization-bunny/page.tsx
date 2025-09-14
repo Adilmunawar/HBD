@@ -38,17 +38,11 @@ export default function RealizationBunnyPage() {
         <Confetti
           width={windowSize.width}
           height={windowSize.height}
-          numberOfPieces={500}
-          recycle={false}
+          numberOfPieces={200}
+          recycle={true}
           gravity={0.1}
           wind={0.05}
-          colors={['#FFC0CB', '#FF69B4', '#FFB6C1', '#DB7093', '#F472B6']}
-          onConfettiComplete={(confetti) => {
-            if (confetti) {
-                confetti.reset();
-            }
-            setShowConfetti(false);
-          }}
+          colors={['#FFC0CB', '#FF69B4', '#FFD700', '#ADD8E6', '#9370DB', '#F472B6']}
         />
       )}
       <main className="relative z-10 flex flex-col items-center justify-center w-full px-4 py-8 sm:px-6 lg:px-8 min-h-screen">
