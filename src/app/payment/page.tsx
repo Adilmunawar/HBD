@@ -110,7 +110,7 @@ export default function PaymentPage() {
                 <TabsContent value="sadapay">
                     <motion.div key="sadapay" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
                         <div className="text-center p-6 bg-muted/50 rounded-lg flex flex-col items-center gap-4">
-                            <Image src="/sadapay-logo.svg" alt="SadaPay" width={120} height={34} />
+                            <Image src="/sadapay-logo.png" alt="SadaPay" width={120} height={34} />
                             <p className="text-sm text-muted-foreground">Transfer to the following account:</p>
                             <div className="flex items-center gap-2 p-2 px-4 bg-background rounded-full">
                                 <p className="text-lg font-bold font-mono text-primary tracking-widest">03244965220</p>
