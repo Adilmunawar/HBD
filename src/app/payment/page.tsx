@@ -10,8 +10,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 
-const EthIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 3l-9 10 9 5 9-5-9-10zM7 13l9 16 9-16-9 5-9-5z" /></svg>;
-const TrxIcon = () => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M11.24 12.19l-1.42 1.41-4.24-4.24-1.42 1.41L9.82 16.4l-1.77 1.77 1.41 1.41 1.77-1.77 4.58 4.58L22 16.03l-7.95-7.95-2.81 2.81zm5.1-5.1a1.5 1.5 0 00-2.12 0L12.8 8.51l2.12 2.12 1.42-1.42zM2.52 14.2l5.65-5.65 1.41 1.41L3.93 15.6z"/></svg>;
+const EthIcon = () => (
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="fill-current">
+        <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.37 4.35h.001zM12.056 0L4.69 12.223l7.366 4.354 7.36-4.354L12.056 0z"/>
+    </svg>
+);
+const TrxIcon = () => (
+    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor">
+        <path d="m18.12.353-2.344 4.322 2.33 4.323h-4.524l-2.33-4.323 2.344-4.322zm-5.025 5.56L9.48 1.583H4.957l2.33 4.332-2.33 4.323h4.524zm-.006 1.235 2.33 4.323-2.33 4.323h4.523l2.344-4.323-2.344-4.323zm-3.26 3.088-2.33 4.323L5.2 23.647h4.524l2.344-4.323-2.345-4.323z"/>
+    </svg>
+);
 
 
 const cryptoOptions = [
