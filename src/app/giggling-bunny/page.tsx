@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { TypingText } from '@/components/ui/typing-text';
 
 export default function GigglingBunnyPage() {
   const router = useRouter();
@@ -26,9 +27,10 @@ export default function GigglingBunnyPage() {
           height={380}
           unoptimized
         />
-        <p className="mt-4 text-2xl font-bold text-foreground">
-          haann mujhe pata tha ap hi hongay
-        </p>
+        <TypingText
+          text="haann mujhe pata tha ap hi hongay"
+          className="mt-4 text-2xl font-bold text-foreground"
+        />
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
           <Link href="/thinking-bunny">
             Next

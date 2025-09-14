@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { TypingText } from '@/components/ui/typing-text';
 
 export default function ThinkingHarderBunnyPage() {
   const router = useRouter();
@@ -33,9 +34,10 @@ export default function ThinkingHarderBunnyPage() {
             <p className="animate-sleepy-zzz animation-delay-1000 text-lg font-bold text-foreground opacity-0">z</p>
           </div>
         </div>
-        <p className="mt-4 text-2xl font-bold text-foreground text-center">
-          Ammm yadd karne dain zara mujheee
-        </p>
+        <TypingText
+          text="Ammm yadd karne dain zara mujheee"
+          className="mt-4 text-2xl font-bold text-foreground text-center"
+        />
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
           <Link href="/realization-bunny">
             Haan karro karro

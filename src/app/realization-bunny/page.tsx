@@ -7,11 +7,12 @@ import Confetti from 'react-confetti';
 import { FoodOrderDialog } from '@/components/ui/food-order-dialog';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { TypingText } from '@/components/ui/typing-text';
 
 export default function RealizationBunnyPage() {
   const router = useRouter();
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const [showConfetti] = useState(true);
+  const [showConfetti, setShowConfetti] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -53,9 +54,11 @@ export default function RealizationBunnyPage() {
           height={380}
           unoptimized
         />
-        <p className="mt-4 text-2xl font-bold text-foreground text-center">
-          Ajj tu apka birhtday haiiii
-        </p>
+        <TypingText
+          text="Ajj tu apka birhtday haiiii"
+          className="mt-4 text-2xl font-bold text-foreground text-center"
+          onComplete={() => setShowConfetti(true)}
+        />
         <Button
           variant="outline"
           className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary"

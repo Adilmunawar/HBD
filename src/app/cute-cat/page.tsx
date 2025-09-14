@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useEffect } from 'react';
+import { TypingText } from '@/components/ui/typing-text';
 
 export default function Home() {
   useEffect(() => {
@@ -21,9 +22,10 @@ export default function Home() {
           height={295}
           unoptimized
         />
-        <p className="mt-4 text-2xl font-bold text-foreground">
-          ye konn hai?
-        </p>
+        <TypingText
+          text="ye konn hai?"
+          className="mt-4 text-2xl font-bold text-foreground"
+        />
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
           <Link href="/cute-bunny">
             Chalo, dekhein kya hai!

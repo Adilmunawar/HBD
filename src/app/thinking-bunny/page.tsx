@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { TypingText } from '@/components/ui/typing-text';
 
 export default function ThinkingBunnyPage() {
   const router = useRouter();
@@ -26,9 +27,10 @@ export default function ThinkingBunnyPage() {
           height={380}
           unoptimized
         />
-        <p className="mt-4 text-2xl font-bold text-foreground text-center">
-          Hamm kuch bhool tu nahi rahy? Aj tu 1st October haaii
-        </p>
+        <TypingText
+          text="Hamm kuch bhool tu nahi rahy? Aj tu 1st October haaii"
+          className="mt-4 text-2xl font-bold text-foreground text-center"
+        />
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
           <Link href="/thinking-harder-bunny">
             Yes, Maybe
