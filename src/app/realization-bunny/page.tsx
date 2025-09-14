@@ -1,17 +1,16 @@
 "use client";
 
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
+import { FoodOrderDialog } from '@/components/ui/food-order-dialog';
 
 export default function RealizationBunnyPage() {
   const router = useRouter();
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const [showConfetti, setShowConfetti] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem('visited_home') !== 'true') {
@@ -38,10 +37,10 @@ export default function RealizationBunnyPage() {
         <Confetti
           width={windowSize.width}
           height={windowSize.height}
-          numberOfPieces={200}
+          numberOfPieces={400}
           recycle={true}
-          gravity={0.1}
-          wind={0.05}
+          gravity={0.05}
+          wind={0.02}
           colors={['#FFC0CB', '#FF69B4', '#FFD700', '#ADD8E6', '#9370DB', '#F472B6']}
         />
       )}
@@ -56,12 +55,11 @@ export default function RealizationBunnyPage() {
         <p className="mt-4 text-2xl font-bold text-foreground text-center">
           Ajj tu apka birhtday haiiii
         </p>
-        <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
-          <Link href="/birthday-wish">
-            Haan hai
-            <ArrowRight />
-          </Link>
-        </Button>
+        <FoodOrderDialog
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+          onProceed={() => router.push('/birthday-wish')}
+        />
       </main>
     </div>
   );
