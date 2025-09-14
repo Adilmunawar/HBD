@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import ClickSpark from '@/components/ui/click-spark';
 
 export const metadata: Metadata = {
   title: "Samina's Celebration Station",
@@ -18,7 +19,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body>
-        {children}
+        <ClickSpark
+          sparkColor="#9370DB"
+          sparkSize={8}
+          sparkRadius={25}
+          sparkCount={12}
+          duration={500}
+        >
+          {children}
+        </ClickSpark>
       </body>
     </html>
   );
