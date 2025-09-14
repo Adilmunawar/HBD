@@ -121,7 +121,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
                 className="w-full"
                 disabled={subtotal === 0}
               >
-                {subtotal > 0 ? 'Proceed to Birthday Wish!' : 'Add something first!'}
+                {subtotal > 0 ? 'Proceed' : 'Add something first!'}
               </Button>
             </motion.div>
           </DialogFooter>
