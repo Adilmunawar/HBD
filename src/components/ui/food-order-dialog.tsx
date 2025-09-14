@@ -28,20 +28,16 @@ const FriesIcon = () => (
       strokeLinejoin="round"
       className="h-8 w-8"
     >
-      <path d="M17.7 7.7c-.4.4-.9.7-1.4 1s-1 .6-1.4 1-1.3 1.3-2.5 2.5c-.7.7-1.5 1.5-2.3 2.3" />
-      <path d="M16 16l-1.4-1.4" />
-      <path d="M19 13l-1.5-1.5" />
-      <path d="m13 19-1.5-1.5" />
-      <path d="m7 20 5-5" />
-      <path d="M22 22 17 17" />
-      <path d="M5.5 8.5 4 7" />
-      <path d="M20 7s-1-2-3-2-3.5 1-5 1-4-1-5-1-1.5 2-1.5 2" />
-      <path d="M13.5 12 10 8.5" />
-      <path d="M6.5 12 3 8.5" />
-      <path d="M10.5 15.5 7 12" />
-      <path d="M21 12h-6" />
-      <path d="M3 12H2" />
-      <path d="M12 22v-6" />
+        <path d="M7.2 13.4 8.7 15s1.4 1.4 2.8 0l-4-4-1.5-1.5s-1.4-1.4 0-2.8l5.5-5.5s1.4-1.4 2.8 0L20 6.1s1.4 1.4 0 2.8l-5.5 5.5s-1.4 1.4-2.8 0L9.9 13.1" />
+        <path d="m5.1 11.2 1.4 1.4" />
+        <path d="m11.1 5.2 1.4 1.4" />
+        <path d="m17.1 11.2 1.4 1.4" />
+        <path d="m4.2 19.5 1-1" />
+        <path d="M2 22v-5l2-2" />
+        <path d="M22 15v5l-2 2" />
+        <path d="m16.5 22-1-1" />
+        <path d="m11.5 22-1-1" />
+        <path d="M6.5 22-1-1" />
     </svg>
   );
 
@@ -156,7 +152,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
           </DialogDescription>
         </DialogHeader>
 
-        <div className="px-6 max-h-[50vh] overflow-y-auto">
+        <div className="px-6 max-h-[60vh] sm:max-h-full overflow-y-auto">
           <div className="flex flex-col gap-2">
             {foodItemsList.map((item, index) => {
               const cartItem = cart.find((ci) => ci.id === item.id);
