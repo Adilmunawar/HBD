@@ -9,7 +9,7 @@ import { FoodOrderDialog } from '@/components/ui/food-order-dialog';
 export default function RealizationBunnyPage() {
   const router = useRouter();
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export default function RealizationBunnyPage() {
     };
 
     handleResize();
-    setShowConfetti(true);
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
