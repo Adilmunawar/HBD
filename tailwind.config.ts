@@ -83,12 +83,40 @@ export default {
             height: '0',
           },
         },
+        'sleepy-zzz': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(0) scale(0.5)',
+          },
+          '50%': {
+            opacity: '1',
+            transform: 'translateY(-20px) scale(1)',
+          },
+          '100%': {
+            opacity: '0',
+            transform: 'translateY(-40px) scale(0.5)',
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'sleepy-zzz': 'sleepy-zzz 2s ease-in-out infinite',
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    function ({ addUtilities }: { addUtilities: any }) {
+      const newUtilities = {
+        '.animation-delay-500': {
+          'animation-delay': '0.5s',
+        },
+        '.animation-delay-1000': {
+          'animation-delay': '1s',
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 } satisfies Config;
