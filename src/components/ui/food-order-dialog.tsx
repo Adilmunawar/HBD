@@ -16,30 +16,31 @@ import { NumberTicker } from '@/components/ui/number-ticker';
 import { Popcorn, GlassWater, CupSoda, Cookie, ShoppingCart } from 'lucide-react';
 
 const FriesIcon = () => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-8 w-8"
-    >
-        <path d="M7.2 13.4 8.7 15s1.4 1.4 2.8 0l-4-4-1.5-1.5s-1.4-1.4 0-2.8l5.5-5.5s1.4-1.4 2.8 0L20 6.1s1.4 1.4 0 2.8l-5.5 5.5s-1.4 1.4-2.8 0L9.9 13.1" />
-        <path d="m5.1 11.2 1.4 1.4" />
-        <path d="m11.1 5.2 1.4 1.4" />
-        <path d="m17.1 11.2 1.4 1.4" />
-        <path d="m4.2 19.5 1-1" />
-        <path d="M2 22v-5l2-2" />
-        <path d="M22 15v5l-2 2" />
-        <path d="m16.5 22-1-1" />
-        <path d="m11.5 22-1-1" />
-        <path d="M6.5 22-1-1" />
-    </svg>
-  );
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-8 w-8"
+  >
+    <path d="M7.2 13.4 8.7 15s1.4 1.4 2.8 0l-4-4-1.5-1.5s-1.4-1.4 0-2.8l5.5-5.5s1.4-1.4 2.8 0L20 6.1s1.4 1.4 0 2.8l-5.5 5.5s-1.4 1.4-2.8 0L9.9 13.1" />
+    <path d="m5.1 11.2 1.4 1.4" />
+    <path d="m11.1 5.2 1.4 1.4" />
+    <path d="m17.1 11.2 1.4 1.4" />
+    <path d="m4.2 19.5 1-1" />
+    <path d="M2 22v-5l2-2" />
+    <path d="M22 15v5l-2 2" />
+    <path d="m16.5 22-1-1" />
+    <path d="m11.5 22-1-1" />
+    <path d="M6.5 22-1-1" />
+  </svg>
+);
+
 
 const foodItemsList = [
   { id: 'lays', name: 'Lays', price: 70, icon: <Popcorn className="h-8 w-8" />, flavors: ['Salted', 'French Cheese', 'Yogurt and Herb'] },
