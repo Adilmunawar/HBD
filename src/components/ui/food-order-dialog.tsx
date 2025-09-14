@@ -28,12 +28,11 @@ const FriesIcon = () => (
       strokeLinejoin="round"
       className="h-8 w-8"
     >
-      <path d="M7 11v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1" />
-      <path d="M10 11V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6" />
-      <path d="M7 11V5a1 1 0 0 1 1-1h1" />
-      <path d="M16 11V5a1 1 0 0 0-1-1h-1" />
-      <path d="M5 21h14" />
-      <path d="M7 21l2-8h6l2 8" />
+      <path d="M17.5 11H19v10H5V11h1.5" />
+      <path d="M14 11V5a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v6" />
+      <path d="M17.5 11l-2-6" />
+      <path d="M6.5 11l2-6" />
+      <path d="M12 11V5" />
     </svg>
   );
 
