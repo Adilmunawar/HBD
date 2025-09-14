@@ -34,7 +34,23 @@ export default function RealizationBunnyPage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
-      {showConfetti && <Confetti width={windowSize.width} height={windowSize.height} />}
+      {showConfetti && (
+        <Confetti
+          width={windowSize.width}
+          height={windowSize.height}
+          numberOfPieces={500}
+          recycle={false}
+          gravity={0.1}
+          wind={0.05}
+          colors={['#FFC0CB', '#FF69B4', '#FFB6C1', '#DB7093', '#F472B6']}
+          onConfettiComplete={(confetti) => {
+            if (confetti) {
+                confetti.reset();
+            }
+            setShowConfetti(false);
+          }}
+        />
+      )}
       <main className="relative z-10 flex flex-col items-center justify-center w-full px-4 py-8 sm:px-6 lg:px-8 min-h-screen">
         <Image
           src="/realization-bunny.gif"
