@@ -13,14 +13,14 @@ import {
 import { Button } from '@/components/ui/button';
 import { FoodItem } from '@/components/ui/food-item';
 import { NumberTicker } from '@/components/ui/number-ticker';
-import { Popcorn, GlassWater, IceCream, Cookie, Beef } from 'lucide-react';
+import { Popcorn, GlassWater, IceCream, Cookie, FrenchFries } from 'lucide-react';
 
 const foodItemsList = [
   { id: 'lays', name: 'Lays', price: 70, icon: <Popcorn className="h-8 w-8" /> },
   { id: 'juice', name: 'Juice', price: 50, icon: <GlassWater className="h-8 w-8" /> },
   { id: 'shake', name: 'Shake', price: 100, icon: <IceCream className="h-8 w-8" /> },
   { id: 'chocolate', name: 'Chocolate', price: 50, icon: <Cookie className="h-8 w-8" /> },
-  { id: 'fries', name: 'Fries', price: 100, icon: <Beef className="h-8 w-8" /> },
+  { id: 'fries', name: 'Fries', price: 100, icon: <FrenchFries className="h-8 w-8" /> },
 ];
 
 type Cart = {
