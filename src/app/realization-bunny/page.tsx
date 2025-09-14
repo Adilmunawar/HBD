@@ -5,19 +5,36 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Confetti from 'react-confetti';
 
 export default function RealizationBunnyPage() {
   const router = useRouter();
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem('visited_home') !== 'true') {
       router.replace('/');
     }
+
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    handleResize();
+    setShowConfetti(true);
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
   }, [router]);
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden">
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {showConfetti && <Confetti width={windowSize.width} height={windowSize.height} />}
       <main className="relative z-10 flex flex-col items-center justify-center w-full px-4 py-8 sm:px-6 lg:px-8 min-h-screen">
         <Image
           src="/realization-bunny.gif"
