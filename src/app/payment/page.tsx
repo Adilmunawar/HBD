@@ -80,8 +80,8 @@ export default function PaymentPage() {
               </TabsList>
               
               <AnimatePresence mode="wait">
-                <TabsContent value="crypto">
-                  <motion.div key="crypto" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
+                <TabsContent key="crypto" value="crypto">
+                  <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
                     <div className="text-center text-sm text-muted-foreground mb-4">Select a currency to view the payment address.</div>
                     <div className="flex justify-center gap-4 mb-4">
                       {cryptoOptions.map(crypto => (
@@ -120,8 +120,8 @@ export default function PaymentPage() {
                   </motion.div>
                 </TabsContent>
 
-                <TabsContent value="sadapay">
-                    <motion.div key="sadapay" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
+                <TabsContent key="sadapay" value="sadapay">
+                    <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
                         <div className="text-center p-6 bg-muted/50 rounded-lg flex flex-col items-center gap-4">
                             <Image src="/sadapay-logo.png" alt="SadaPay" width={120} height={34} />
                             <p className="text-sm text-muted-foreground">Transfer to the following account:</p>
@@ -135,8 +135,8 @@ export default function PaymentPage() {
                     </motion.div>
                 </TabsContent>
 
-                <TabsContent value="recommended">
-                    <motion.div key="recommended" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.4, type: 'spring' }}>
+                <TabsContent key="recommended" value="recommended">
+                    <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.4, type: 'spring' }}>
                         <div className="text-center p-8 bg-primary/10 rounded-lg flex flex-col items-center gap-4">
                             <motion.div
                                 animate={{ scale: [1, 1.1, 1], rotate: [-5, 5, -5, 0] }}
