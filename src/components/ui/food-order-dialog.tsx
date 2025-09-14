@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, createRef, useRef } from 'react';
-import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import {
   Dialog,
   DialogContent,
@@ -16,25 +16,34 @@ import { NumberTicker } from '@/components/ui/number-ticker';
 import { Popcorn, GlassWater, CupSoda, Cookie, ShoppingCart } from 'lucide-react';
 
 const FriesIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="32"
-    height="32"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-8 w-8"
-  >
-    <path d="M7 14.5v-5a2 2 0 0 1 4 0v5" />
-    <path d="M10.5 14.5v-5a2 2 0 0 1 4 0v5" />
-    <path d="M14 14.5v-5a2 2 0 0 1 4 0v5" />
-    <path d="M6 14.5h12" />
-    <path d="M5 14.5 3.7 20.3a2 2 0 0 0 2 2.7h12.6a2 2 0 0 0 2-2.7L19 14.5" />
-  </svg>
-);
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-8 w-8"
+    >
+      <path d="M17.7 7.7c-.4.4-.9.7-1.4 1s-1 .6-1.4 1-1.3 1.3-2.5 2.5c-.7.7-1.5 1.5-2.3 2.3" />
+      <path d="M16 16l-1.4-1.4" />
+      <path d="M19 13l-1.5-1.5" />
+      <path d="m13 19-1.5-1.5" />
+      <path d="m7 20 5-5" />
+      <path d="M22 22 17 17" />
+      <path d="M5.5 8.5 4 7" />
+      <path d="M20 7s-1-2-3-2-3.5 1-5 1-4-1-5-1-1.5 2-1.5 2" />
+      <path d="M13.5 12 10 8.5" />
+      <path d="M6.5 12 3 8.5" />
+      <path d="M10.5 15.5 7 12" />
+      <path d="M21 12h-6" />
+      <path d="M3 12H2" />
+      <path d="M12 22v-6" />
+    </svg>
+  );
 
 const foodItemsList = [
   { id: 'lays', name: 'Lays', price: 70, icon: <Popcorn className="h-8 w-8" />, flavors: ['Salted', 'French Cheese', 'Yogurt and Herb'] },
@@ -147,7 +156,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
           </DialogDescription>
         </DialogHeader>
 
-        <div className="px-6 max-h-[40vh] overflow-y-auto">
+        <div className="px-6 max-h-[50vh] overflow-y-auto">
           <div className="flex flex-col gap-2">
             {foodItemsList.map((item, index) => {
               const cartItem = cart.find((ci) => ci.id === item.id);
