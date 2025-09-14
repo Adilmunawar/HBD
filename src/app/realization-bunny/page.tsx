@@ -61,7 +61,7 @@ export default function RealizationBunnyPage() {
           className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary"
           onClick={() => setIsDialogOpen(true)}
         >
-          Haan karro karro
+          Hann Hai
           <ArrowRight />
         </Button>
         <FoodOrderDialog
