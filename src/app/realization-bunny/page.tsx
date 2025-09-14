@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { FoodOrderDialog } from '@/components/ui/food-order-dialog';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 export default function RealizationBunnyPage() {
   const router = useRouter();
@@ -54,6 +56,14 @@ export default function RealizationBunnyPage() {
         <p className="mt-4 text-2xl font-bold text-foreground text-center">
           Ajj tu apka birhtday haiiii
         </p>
+        <Button
+          variant="outline"
+          className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary"
+          onClick={() => setIsDialogOpen(true)}
+        >
+          Haan karro karro
+          <ArrowRight />
+        </Button>
         <FoodOrderDialog
           open={isDialogOpen}
           onOpenChange={setIsDialogOpen}
