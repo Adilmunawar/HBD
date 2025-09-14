@@ -11,7 +11,7 @@ import { ArrowRight } from 'lucide-react';
 export default function RealizationBunnyPage() {
   const router = useRouter();
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
-  const [showConfetti, setShowConfetti] = useState(true);
+  const [showConfetti] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function RealizationBunnyPage() {
         <FoodOrderDialog
           open={isDialogOpen}
           onOpenChange={setIsDialogOpen}
-          onProceed={() => router.push('/birthday-wish')}
+          onProceed={() => router.push('/payment')}
         />
       </main>
     </div>

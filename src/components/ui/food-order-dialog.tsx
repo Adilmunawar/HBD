@@ -153,7 +153,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
           </DialogDescription>
         </DialogHeader>
 
-        <div className="px-6 max-h-[60vh] sm:max-h-full overflow-y-auto">
+        <div className="px-6 max-h-[60vh] sm:max-h-[calc(100vh-220px)] overflow-y-auto">
           <div className="flex flex-col gap-2">
             {foodItemsList.map((item, index) => {
               const cartItem = cart.find((ci) => ci.id === item.id);
