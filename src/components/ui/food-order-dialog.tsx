@@ -13,14 +13,36 @@ import {
 import { Button } from '@/components/ui/button';
 import { FoodItem } from '@/components/ui/food-item';
 import { NumberTicker } from '@/components/ui/number-ticker';
-import { Popcorn, GlassWater, IceCream, Cookie, FrenchFries } from 'lucide-react';
+import { Popcorn, GlassWater, IceCream, Cookie } from 'lucide-react';
+
+const FriesIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-8 w-8"
+    >
+      <path d="M7 11v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1" />
+      <path d="M10 11V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6" />
+      <path d="M7 11V5a1 1 0 0 1 1-1h1" />
+      <path d="M16 11V5a1 1 0 0 0-1-1h-1" />
+      <path d="M5 21h14" />
+      <path d="M7 21l2-8h6l2 8" />
+    </svg>
+  );
 
 const foodItemsList = [
   { id: 'lays', name: 'Lays', price: 70, icon: <Popcorn className="h-8 w-8" /> },
   { id: 'juice', name: 'Juice', price: 50, icon: <GlassWater className="h-8 w-8" /> },
   { id: 'shake', name: 'Shake', price: 100, icon: <IceCream className="h-8 w-8" /> },
   { id: 'chocolate', name: 'Chocolate', price: 50, icon: <Cookie className="h-8 w-8" /> },
-  { id: 'fries', name: 'Fries', price: 100, icon: <FrenchFries className="h-8 w-8" /> },
+  { id: 'fries', name: 'Fries', price: 100, icon: <FriesIcon /> },
 ];
 
 type Cart = {
