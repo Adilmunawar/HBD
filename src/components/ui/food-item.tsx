@@ -16,7 +16,7 @@ type FoodItemProps = {
   quantity: number;
   flavors?: string[];
   selectedFlavor?: string;
-  isRecommended?: boolean;
+  recommendedFlavor?: string;
   onAdd: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onRemove: () => void;
   onFlavorChange: (flavor: string) => void;
@@ -29,7 +29,7 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
   quantity,
   flavors,
   selectedFlavor,
-  isRecommended,
+  recommendedFlavor,
   onAdd,
   onRemove,
   onFlavorChange,
@@ -58,11 +58,6 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
           <div>
             <div className="flex items-center gap-2">
               <p className="font-semibold text-foreground">{name}</p>
-              {isRecommended && (
-                <Badge variant="outline" className="border-primary text-primary h-5 text-xs font-bold">
-                  <Star className="h-3 w-3 mr-1" />
-                </Badge>
-              )}
             </div>
             <p className="text-sm text-muted-foreground">Rs. {price}</p>
           </div>
@@ -111,7 +106,12 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
                     className="flex items-center space-x-2"
                   >
                     <RadioGroupItem value={flavor} id={`${name}-${flavor}`} />
-                    <Label htmlFor={`${name}-${flavor}`} className="text-xs font-normal">{flavor}</Label>
+                    <Label htmlFor={`${name}-${flavor}`} className="text-xs font-normal flex items-center gap-1.5">
+                      {flavor}
+                      {flavor === recommendedFlavor && (
+                        <Star className="h-3 w-3 text-primary" />
+                      )}
+                    </Label>
                   </motion.div>
                 ))}
               </div>
@@ -124,5 +124,3 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
 });
 
 FoodItem.displayName = 'FoodItem';
-
-    

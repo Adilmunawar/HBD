@@ -2,10 +2,10 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Copy, CreditCard, Send, Wallet, CheckCircle, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
+import { Copy, Wallet, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -37,6 +37,7 @@ const cryptoOptions = [
 
 function PaymentComponent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const [selectedCrypto, setSelectedCrypto] = useState(cryptoOptions[0].id);
   const [isPaying, setIsPaying] = useState(false);
@@ -170,8 +171,10 @@ function PaymentComponent() {
                       <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.4, type: 'spring' }}>
                           <div className="text-center p-8 bg-primary/10 rounded-lg flex flex-col items-center gap-4">
                               <motion.div
-                                  animate={{ scale: [1, 1.1, 1], rotate: [-5, 5, -5, 0] }}
-                                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                                  whileHover={{ scale: 1.1, rotate: 10 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  animate={{ y: [0, -5, 0] }}
+                                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
                               >
                                   <Wallet className="h-16 w-16 text-primary" />
                               </motion.div>

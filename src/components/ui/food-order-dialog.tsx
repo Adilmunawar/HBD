@@ -14,8 +14,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { FoodItem } from '@/components/ui/food-item';
 import { NumberTicker } from '@/components/ui/number-ticker';
-import { Popcorn, GlassWater, CupSoda, Cookie, ShoppingCart, Star } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Popcorn, GlassWater, CupSoda, Cookie, ShoppingCart } from 'lucide-react';
 
 const FriesIcon = () => (
   <svg
@@ -75,6 +75,10 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
 
   const subtotal = useMemo(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  }, [cart]);
+
+  const totalItems = useMemo(() => {
+    return cart.reduce((total, item) => total + item.quantity, 0);
   }, [cart]);
 
   const handleAddToCart = (item: typeof foodItemsList[0], itemIndex: number) => {
@@ -147,7 +151,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px] p-0">
+      <DialogContent className="sm:max-w-[480px] p-0 flex flex-col h-full sm:h-auto max-h-[90vh]">
         <DialogHeader className="p-6 pb-2">
           <DialogTitle>Aise kahan ja rahy ho agy agy?</DialogTitle>
           <DialogDescription>
@@ -155,8 +159,8 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
           </DialogDescription>
         </DialogHeader>
 
-        <div className="px-6 max-h-[60vh] sm:max-h-[calc(100vh-220px)] overflow-y-auto">
-          <div className="flex flex-col gap-2">
+        <ScrollArea className="flex-grow px-4">
+          <div className="flex flex-col gap-2 p-2">
             {foodItemsList.map((item, index) => {
               const cartItem = cart.find((ci) => ci.id === item.id);
               return (
@@ -169,7 +173,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
                   quantity={cartItem?.quantity || 0}
                   flavors={item.flavors}
                   selectedFlavor={cartItem?.flavor}
-                  isRecommended={!!item.recommendedFlavor}
+                  recommendedFlavor={item.recommendedFlavor}
                   onAdd={(e) => {
                     e.stopPropagation();
                     handleAddToCart(item, index);
@@ -180,11 +184,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
               );
             })}
           </div>
-        </div>
-        
-        <div className="px-6 text-xs text-center text-muted-foreground mt-2">
-            Items with a <Star className="inline h-3 w-3 text-primary" /> are recommended!
-        </div>
+        </ScrollArea>
 
         {flyingIcons.map(({id, icon, from, to}) => (
             <motion.div
@@ -201,17 +201,22 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
             </motion.div>
         ))}
 
-        <DialogFooter className="p-6 pt-4 flex-row justify-between items-center bg-secondary/30">
+        <DialogFooter className="p-6 pt-4 flex-row justify-between items-center bg-secondary/30 mt-auto">
             <motion.div ref={cartRef} animate={cartControls} className="relative">
                 <ShoppingCart className="h-6 w-6 text-primary" />
-                {cart.length > 0 && 
-                    <div className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                        {cart.reduce((acc, item) => acc + item.quantity, 0)}
-                    </div>
+                {totalItems > 0 && 
+                    <motion.div 
+                      key={totalItems}
+                      initial={{ scale: 0, y: 10 }}
+                      animate={{ scale: 1, y: 0 }}
+                      className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold"
+                    >
+                        {totalItems}
+                    </motion.div>
                 }
             </motion.div>
           <div className="flex items-center gap-4">
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-baseline gap-2 text-right">
                 <span className="text-sm text-muted-foreground">Subtotal:</span>
                 <span className="text-xl font-bold text-primary">
                 Rs. <NumberTicker value={subtotal} />
