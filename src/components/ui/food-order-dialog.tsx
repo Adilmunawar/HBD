@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import { FoodItem } from '@/components/ui/food-item';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Popcorn, GlassWater, CupSoda, Cookie, ShoppingCart } from 'lucide-react';
+import { Popcorn, GlassWater, CupSoda, Cookie, Sandwich, IceCream2, ShoppingCart } from 'lucide-react';
 
 const FriesIcon = () => (
   <svg
@@ -43,6 +43,48 @@ const FriesIcon = () => (
   </svg>
 );
 
+const PizzaIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-8 w-8"
+  >
+    <path d="M15 11h.01" />
+    <path d="M11 15h.01" />
+    <path d="M16 16h.01" />
+    <path d="M21.17 8.83a1.003 1.003 0 0 0-.17-1.09l-4.16-4.16a1 1 0 0 0-1.09-.17C12.9 5.34 10.16 6.9 8 9.05c-2.16 2.16-3.7 4.9-5.58 7.74.39.39.87.68 1.4.85l5.24-5.24a1 1 0 0 1 1.42 0l2.82 2.82a1 1 0 0 1 0 1.42l-5.24 5.24c.17.53.46 1.01.85 1.4 2.85-1.87 5.58-3.42 7.74-5.58 2.16-2.16 3.7-4.9 5.58-7.74Z" />
+  </svg>
+);
+
+const BurgerIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-8 w-8"
+  >
+    <path d="M8 6h8a2 2 0 0 1 1.73 1H6.27A2 2 0 0 1 8 6Z" />
+    <path d="M6.27 18h11.46a2 2 0 0 1-1.73 1H8a2 2 0 0 1-1.73-1Z" />
+    <path d="M5 14h14" />
+    <path d="M5 10h14" />
+    <path d="M3 14c0-2.5 4.5-5 9-5s9 2.5 9 5-4.5 5-9 5-9-2.5-9-5Z" />
+    <path d="M4.21 9.42A7.63 7.63 0 0 1 3 7c0-2 4-3 9-3s9 1 9 3c0 .85-.79 1.63-2.07 2.33" />
+  </svg>
+);
+
 
 const foodItemsList = [
   { id: 'lays', name: 'Lays', price: 70, icon: <Popcorn className="h-8 w-8" />, flavors: ['Salted', 'French Cheese', 'Yogurt and Herb'], recommendedFlavor: 'Yogurt and Herb' },
@@ -50,6 +92,10 @@ const foodItemsList = [
   { id: 'shake', name: 'Shake', price: 100, icon: <CupSoda className="h-8 w-8" />, flavors: ['Mango', 'Banana', 'Oreo'] },
   { id: 'chocolate', name: 'Chocolate', price: 50, icon: <Cookie className="h-8 w-8" /> },
   { id: 'fries', name: 'Fries', price: 100, icon: <FriesIcon /> },
+  { id: 'pizza', name: 'Pizza Slice', price: 250, icon: <PizzaIcon />, flavors: ['Fajita', 'Tikka', 'Pepperoni'], recommendedFlavor: 'Fajita' },
+  { id: 'burger', name: 'Burger', price: 350, icon: <BurgerIcon /> },
+  { id: 'sandwich', name: 'Sandwich', price: 180, icon: <Sandwich className="h-8 w-8" />, flavors: ['Club', 'Chicken', 'Veggie'] },
+  { id: 'icecream', name: 'Ice Cream', price: 120, icon: <IceCream2 className="h-8 w-8" />, flavors: ['Chocolate', 'Vanilla', 'Strawberry'] },
 ];
 
 type FoodOrderDialogProps = {
@@ -151,7 +197,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[480px] p-0 flex flex-col h-full sm:h-auto max-h-[90vh]">
+      <DialogContent className="sm:max-w-2xl p-0 flex flex-col h-full sm:h-auto max-h-[90vh]">
         <DialogHeader className="p-6 pb-2">
           <DialogTitle>Aise kahan ja rahy ho agy agy?</DialogTitle>
           <DialogDescription>
@@ -160,24 +206,16 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
         </DialogHeader>
 
         <ScrollArea className="flex-grow px-4">
-          <div className="flex flex-col gap-2 p-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 p-2">
             {foodItemsList.map((item, index) => {
               const cartItem = cart.find((ci) => ci.id === item.id);
               return (
                 <FoodItem
                   key={item.id}
                   ref={itemRefs[index]}
-                  icon={item.icon}
-                  name={item.name}
-                  price={item.price}
-                  quantity={cartItem?.quantity || 0}
-                  flavors={item.flavors}
-                  selectedFlavor={cartItem?.flavor}
-                  recommendedFlavor={item.recommendedFlavor}
-                  onAdd={(e) => {
-                    e.stopPropagation();
-                    handleAddToCart(item, index);
-                  }}
+                  item={item}
+                  cartItem={cartItem}
+                  onAdd={() => handleAddToCart(item, index)}
                   onRemove={() => handleRemoveFromCart(item.id)}
                   onFlavorChange={(flavor) => handleFlavorChange(item.id, flavor)}
                 />
@@ -236,3 +274,5 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
     </Dialog>
   );
 }
+
+    
