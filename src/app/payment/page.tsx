@@ -7,9 +7,10 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, CreditCard, Send, Wallet, CheckCircle, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
+import { NumberTicker } from '@/components/ui/number-ticker';
 
 const BtcIcon = () => (
     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="fill-current">
@@ -60,7 +61,12 @@ export default function PaymentPage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-background flex items-center justify-center p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
-        <div className="hidden md:flex flex-col items-center justify-center">
+        <motion.div 
+          className="hidden md:flex flex-col items-center justify-center"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <Image
             src="/payment-thinking.gif"
             alt="Thinking about payment"
@@ -71,13 +77,18 @@ export default function PaymentPage() {
           <p className="mt-4 text-center text-lg text-muted-foreground">
             Just a moment, we're preparing your secure payment portal...
           </p>
-        </div>
-        <div className="w-full">
+        </motion.div>
+        <motion.div 
+          className="w-full"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <Card className="w-full shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center justify-center text-2xl font-bold text-primary">
-                <CreditCard className="mr-2" />
-                Payment Gateway
+            <CardHeader className="text-center">
+              <CardDescription>Amount Payable</CardDescription>
+              <CardTitle className="text-4xl font-bold text-primary flex justify-center items-baseline">
+                Rs. <NumberTicker value={520} />
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -181,7 +192,7 @@ export default function PaymentPage() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
