@@ -35,7 +35,8 @@ export default function RealizationBunnyPage() {
   }, [router]);
 
   const handleProceedToPayment = (total: number) => {
-    router.push(`/payment?amount=${total}`);
+    sessionStorage.setItem('paymentAmount', total.toString());
+    router.push('/payment');
   };
 
   return (

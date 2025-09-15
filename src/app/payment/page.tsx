@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, CreditCard, Send, Wallet, CheckCircle, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
@@ -37,18 +37,20 @@ const cryptoOptions = [
 
 function PaymentComponent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { toast } = useToast();
   const [selectedCrypto, setSelectedCrypto] = useState(cryptoOptions[0].id);
   const [isPaying, setIsPaying] = useState(false);
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
-    const amountParam = searchParams.get('amount');
-    if (amountParam) {
-      setAmount(parseInt(amountParam, 10));
+    const paymentAmount = sessionStorage.getItem('paymentAmount');
+    if (paymentAmount) {
+      setAmount(parseInt(paymentAmount, 10));
+    } else {
+        // If no amount is found, maybe redirect or show a message.
+        // For this flow, we can just let it be 0 and disable the button.
     }
-  }, [searchParams]);
+  }, []);
 
   const handleCopyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
