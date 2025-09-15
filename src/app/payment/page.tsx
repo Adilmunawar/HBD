@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState } from 'react';
@@ -59,12 +60,7 @@ export default function PaymentPage() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-background flex items-center justify-center p-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="hidden md:flex flex-col items-center justify-center"
-        >
+        <div className="hidden md:flex flex-col items-center justify-center">
           <Image
             src="/payment-thinking.gif"
             alt="Thinking about payment"
@@ -75,13 +71,8 @@ export default function PaymentPage() {
           <p className="mt-4 text-center text-lg text-muted-foreground">
             Just a moment, we're preparing your secure payment portal...
           </p>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="w-full"
-        >
+        </div>
+        <div className="w-full">
           <Card className="w-full shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-primary/20">
             <CardHeader>
               <CardTitle className="flex items-center justify-center text-2xl font-bold text-primary">
@@ -190,7 +181,7 @@ export default function PaymentPage() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
