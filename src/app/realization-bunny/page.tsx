@@ -7,7 +7,6 @@ import Confetti from 'react-confetti';
 import { FoodOrderDialog } from '@/components/ui/food-order-dialog';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { TypingText } from '@/components/ui/typing-text';
 
 export default function RealizationBunnyPage() {
   const router = useRouter();
@@ -28,6 +27,7 @@ export default function RealizationBunnyPage() {
     };
 
     handleResize();
+    setShowConfetti(true); // Auto-trigger confetti
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
@@ -54,11 +54,9 @@ export default function RealizationBunnyPage() {
           height={380}
           unoptimized
         />
-        <TypingText
-          text="Ajj tu apka birhtday haiiii"
-          className="mt-4 text-2xl font-bold text-foreground text-center"
-          onComplete={() => setShowConfetti(true)}
-        />
+        <p className="mt-4 text-2xl font-bold text-foreground text-center">
+          Ajj tu apka birhtday haiiii
+        </p>
         <Button
           variant="outline"
           className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary"

@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { TypingText } from '@/components/ui/typing-text';
 
 export default function CuteBunnyPage() {
   const router = useRouter();
@@ -27,10 +26,9 @@ export default function CuteBunnyPage() {
           height={380}
           unoptimized
         />
-        <TypingText
-          text="Arry Itaa piyarra insan"
-          className="mt-4 text-2xl font-bold text-foreground"
-        />
+        <p className="mt-4 text-2xl font-bold text-foreground">
+          Arry Itaa piyarra insan
+        </p>
         <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
           <Link href="/peeking-bunny">
             dekho zara
