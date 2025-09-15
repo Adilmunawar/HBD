@@ -1,11 +1,13 @@
+
 "use client";
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, Star } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Badge } from '@/components/ui/badge';
 
 type FoodItemProps = {
   icon: React.ReactNode;
@@ -14,6 +16,7 @@ type FoodItemProps = {
   quantity: number;
   flavors?: string[];
   selectedFlavor?: string;
+  isRecommended?: boolean;
   onAdd: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onRemove: () => void;
   onFlavorChange: (flavor: string) => void;
@@ -26,21 +29,41 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
   quantity,
   flavors,
   selectedFlavor,
+  isRecommended,
   onAdd,
   onRemove,
   onFlavorChange,
 }, ref) => {
+  const controls = useAnimation();
+  
+  useEffect(() => {
+    if (quantity > 0) {
+      controls.start({
+        x: [0, -5, 5, -5, 5, 0],
+        transition: { duration: 0.4 }
+      });
+    }
+  }, [quantity, controls]);
+
   return (
     <motion.div
       layout
       ref={ref}
+      animate={controls}
       className="flex flex-col p-2 rounded-lg transition-colors hover:bg-secondary/50"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="text-primary size-8" data-food-icon={name}>{icon}</div>
           <div>
-            <p className="font-semibold text-foreground">{name}</p>
+            <div className="flex items-center gap-2">
+              <p className="font-semibold text-foreground">{name}</p>
+              {isRecommended && (
+                <Badge variant="outline" className="border-primary text-primary h-5 text-xs font-bold">
+                  <Star className="h-3 w-3 mr-1" />
+                </Badge>
+              )}
+            </div>
             <p className="text-sm text-muted-foreground">Rs. {price}</p>
           </div>
         </div>
@@ -79,11 +102,17 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
           >
             <RadioGroup value={selectedFlavor} onValueChange={onFlavorChange}>
               <div className="flex flex-wrap gap-x-4 gap-y-2">
-                {flavors.map((flavor) => (
-                  <div key={flavor} className="flex items-center space-x-2">
+                {flavors.map((flavor, i) => (
+                  <motion.div
+                    key={flavor}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="flex items-center space-x-2"
+                  >
                     <RadioGroupItem value={flavor} id={`${name}-${flavor}`} />
                     <Label htmlFor={`${name}-${flavor}`} className="text-xs font-normal">{flavor}</Label>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </RadioGroup>
@@ -95,3 +124,5 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
 });
 
 FoodItem.displayName = 'FoodItem';
+
+    

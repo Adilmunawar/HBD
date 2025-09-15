@@ -14,7 +14,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { FoodItem } from '@/components/ui/food-item';
 import { NumberTicker } from '@/components/ui/number-ticker';
-import { Popcorn, GlassWater, CupSoda, Cookie, ShoppingCart } from 'lucide-react';
+import { Popcorn, GlassWater, CupSoda, Cookie, ShoppingCart, Star } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 const FriesIcon = () => (
   <svg
@@ -44,8 +45,8 @@ const FriesIcon = () => (
 
 
 const foodItemsList = [
-  { id: 'lays', name: 'Lays', price: 70, icon: <Popcorn className="h-8 w-8" />, flavors: ['Salted', 'French Cheese', 'Yogurt and Herb'] },
-  { id: 'juice', name: 'Juice', price: 50, icon: <GlassWater className="h-8 w-8" />, flavors: ['Slice', 'Nestle', 'Fruitien'] },
+  { id: 'lays', name: 'Lays', price: 70, icon: <Popcorn className="h-8 w-8" />, flavors: ['Salted', 'French Cheese', 'Yogurt and Herb'], recommendedFlavor: 'Yogurt and Herb' },
+  { id: 'juice', name: 'Juice', price: 50, icon: <GlassWater className="h-8 w-8" />, flavors: ['Slice', 'Nestle', 'Fruitien'], recommendedFlavor: 'Slice' },
   { id: 'shake', name: 'Shake', price: 100, icon: <CupSoda className="h-8 w-8" />, flavors: ['Mango', 'Banana', 'Oreo'] },
   { id: 'chocolate', name: 'Chocolate', price: 50, icon: <Cookie className="h-8 w-8" /> },
   { id: 'fries', name: 'Fries', price: 100, icon: <FriesIcon /> },
@@ -168,6 +169,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
                   quantity={cartItem?.quantity || 0}
                   flavors={item.flavors}
                   selectedFlavor={cartItem?.flavor}
+                  isRecommended={!!item.recommendedFlavor}
                   onAdd={(e) => {
                     e.stopPropagation();
                     handleAddToCart(item, index);
@@ -181,7 +183,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
         </div>
         
         <div className="px-6 text-xs text-center text-muted-foreground mt-2">
-            Recommendation: <span className="text-primary font-semibold">Yogurt Lays</span> and <span className="text-primary font-semibold">Slice Juice</span>
+            Items with a <Star className="inline h-3 w-3 text-primary" /> are recommended!
         </div>
 
         {flyingIcons.map(({id, icon, from, to}) => (
@@ -229,3 +231,5 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
     </Dialog>
   );
 }
+
+    
