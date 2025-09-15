@@ -1,8 +1,8 @@
 
 "use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, CreditCard, Send, Wallet, CheckCircle, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
@@ -35,11 +35,20 @@ const cryptoOptions = [
   { id: 'trx', name: 'Tron TRC20', icon: <TrxIcon />, address: 'TLsTFBCpErXsuMgKGLVYE2Y6z8qhhhtCvB' },
 ];
 
-export default function PaymentPage() {
+function PaymentComponent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { toast } = useToast();
   const [selectedCrypto, setSelectedCrypto] = useState(cryptoOptions[0].id);
   const [isPaying, setIsPaying] = useState(false);
+  const [amount, setAmount] = useState(0);
+
+  useEffect(() => {
+    const amountParam = searchParams.get('amount');
+    if (amountParam) {
+      setAmount(parseInt(amountParam, 10));
+    }
+  }, [searchParams]);
 
   const handleCopyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -88,7 +97,7 @@ export default function PaymentPage() {
             <CardHeader className="text-center">
               <CardDescription>Amount Payable</CardDescription>
               <CardTitle className="text-4xl font-bold text-primary flex justify-center items-baseline">
-                Rs. <NumberTicker value={520} />
+                Rs. <NumberTicker value={amount} />
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -176,7 +185,7 @@ export default function PaymentPage() {
                   <ArrowLeft className="mr-2" />
                   Go Back
                 </Button>
-                <Button onClick={handleProceed} disabled={isPaying} className="bg-primary hover:bg-primary/90">
+                <Button onClick={handleProceed} disabled={isPaying || amount === 0} className="bg-primary hover:bg-primary/90">
                   {isPaying ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -195,5 +204,13 @@ export default function PaymentPage() {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+export default function PaymentPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PaymentComponent />
+    </Suspense>
   );
 }

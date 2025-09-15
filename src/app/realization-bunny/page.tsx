@@ -34,6 +34,10 @@ export default function RealizationBunnyPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, [router]);
 
+  const handleProceedToPayment = (total: number) => {
+    router.push(`/payment?amount=${total}`);
+  };
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {showConfetti && (
@@ -69,7 +73,7 @@ export default function RealizationBunnyPage() {
         <FoodOrderDialog
           open={isDialogOpen}
           onOpenChange={setIsDialogOpen}
-          onProceed={() => router.push('/payment')}
+          onProceed={handleProceedToPayment}
         />
       </main>
     </div>

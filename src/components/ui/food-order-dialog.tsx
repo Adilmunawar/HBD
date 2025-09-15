@@ -55,7 +55,7 @@ const foodItemsList = [
 type FoodOrderDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onProceed: () => void;
+  onProceed: (total: number) => void;
 };
 
 type CartItem = {
@@ -87,7 +87,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
       }
       const newItem: CartItem = { id: item.id, name: item.name, price: item.price, quantity: 1 };
       if (item.flavors) {
-        newItem.flavor = item.flavors[0];
+        newItem.flavor = item.recommendedFlavor || item.flavors[0];
       }
       return [...prevCart, newItem];
     });
@@ -221,7 +221,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
               animate={{ scale: subtotal > 0 ? 1 : 0.8, opacity: subtotal > 0 ? 1 : 0.5 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              <Button onClick={onProceed} disabled={subtotal === 0}>
+              <Button onClick={() => onProceed(subtotal)} disabled={subtotal === 0}>
                 Proceed
               </Button>
             </motion.div>
@@ -231,5 +231,3 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
     </Dialog>
   );
 }
-
-    
