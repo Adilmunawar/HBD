@@ -68,8 +68,6 @@ const foodItemsList = [
   { id: 'juice', name: 'Juice', price: 50, icon: <GlassWater className="h-8 w-8" />, flavors: ['Slice', 'Nestle', 'Fruitien'], recommendedFlavor: 'Slice' },
   { id: 'shake', name: 'Shake', price: 100, icon: <CupSoda className="h-8 w-8" />, flavors: ['Mango', 'Banana', 'Oreo'] },
   { id: 'chocolate', name: 'Chocolate', price: 50, icon: <Cookie className="h-8 w-8" /> },
-  { id: 'fries', name: 'Fries', price: 100, icon: <FriesIcon /> },
-  { id: 'pizza', name: 'Pizza Slice', price: 250, icon: <PizzaIcon />, flavors: ['Fajita', 'Tikka', 'Pepperoni'], recommendedFlavor: 'Fajita' },
   { id: 'burger', name: 'Burger', price: 350, icon: <BurgerIcon /> },
   { id: 'sandwich', name: 'Sandwich', price: 180, icon: <Sandwich className="h-8 w-8" />, flavors: ['Club', 'Chicken', 'Veggie'] },
   { id: 'icecream', name: 'Ice Cream', price: 120, icon: <IceCream2 className="h-8 w-8" />, flavors: ['Chocolate', 'Vanilla', 'Strawberry'] },
