@@ -249,5 +249,3 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
     </Dialog>
   );
 }
-
-    

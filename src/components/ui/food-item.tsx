@@ -57,7 +57,7 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
       layout
       ref={ref}
       animate={controls}
-      className="relative flex flex-col justify-between rounded-lg border bg-card text-card-foreground shadow-sm transition-colors hover:bg-muted/50 cursor-pointer overflow-hidden"
+      className="relative flex flex-col justify-between rounded-lg border bg-card text-card-foreground shadow-sm transition-colors hover:bg-muted/50 cursor-pointer"
       onClick={quantity === 0 ? onAdd : undefined}
     >
       {item.recommendedFlavor && (
@@ -145,5 +145,3 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
 });
 
 FoodItem.displayName = 'FoodItem';
-
-    
