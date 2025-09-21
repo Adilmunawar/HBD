@@ -57,12 +57,12 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
       layout
       ref={ref}
       animate={controls}
-      className="relative flex flex-col justify-between rounded-lg border bg-card text-card-foreground shadow-sm transition-colors hover:bg-muted/50 cursor-pointer overflow-hidden"
+      className="relative flex flex-col justify-between rounded-lg border bg-card text-card-foreground shadow-sm transition-colors hover:bg-muted/50 cursor-pointer"
       onClick={quantity === 0 ? onAdd : undefined}
     >
       {item.recommendedFlavor && (
-        <div className="absolute top-0 right-0 h-16 w-16">
-          <div className="absolute transform rotate-45 bg-primary text-center text-primary-foreground font-semibold py-0.5 text-xs" style={{ width: '10rem', right: '-3rem', top: '1rem' }}>
+        <div className="absolute top-0 right-0 h-16 w-16 overflow-hidden rounded-tr-lg">
+          <div className="absolute transform rotate-45 bg-primary text-center text-primary-foreground font-semibold py-0.5 text-[10px] leading-tight" style={{ width: '10rem', right: '-3rem', top: '1rem' }}>
             Recommended
           </div>
         </div>
