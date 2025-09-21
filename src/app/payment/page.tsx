@@ -91,7 +91,7 @@ function PaymentComponent() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="recommended" className="w-full">
+              <Tabs defaultValue="sadapay" className="w-full">
                 <TabsList className="grid w-full grid-cols-3 bg-muted/50 rounded-lg">
                   <TabsTrigger value="crypto">Crypto</TabsTrigger>
                   <TabsTrigger value="sadapay">SadaPay</TabsTrigger>
