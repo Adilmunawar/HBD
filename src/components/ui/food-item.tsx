@@ -61,8 +61,8 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
       onClick={quantity === 0 ? onAdd : undefined}
     >
       {item.recommendedFlavor && (
-        <div className="absolute top-0 right-0 h-16 w-16 overflow-hidden">
-          <div className="absolute top-4 -right-4 text-xs text-center text-primary-foreground bg-primary px-4 py-0.5 rotate-45 font-semibold">
+        <div className="absolute top-0 right-0 h-16 w-16">
+          <div className="absolute transform rotate-45 bg-primary text-center text-primary-foreground font-semibold py-0.5 text-xs" style={{ width: '10rem', right: '-3rem', top: '1rem' }}>
             Recommended
           </div>
         </div>
