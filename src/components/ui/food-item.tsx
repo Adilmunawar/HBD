@@ -57,12 +57,14 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
       layout
       ref={ref}
       animate={controls}
-      className="relative flex flex-col justify-between rounded-lg border bg-card text-card-foreground shadow-sm transition-colors hover:bg-muted/50 cursor-pointer"
+      className="relative flex flex-col justify-between rounded-lg border bg-card text-card-foreground shadow-sm transition-colors hover:bg-muted/50 cursor-pointer overflow-hidden"
       onClick={quantity === 0 ? onAdd : undefined}
     >
       {item.recommendedFlavor && (
-        <div className="absolute top-2 -right-10 text-xs text-primary-foreground bg-primary px-12 py-0.5 rotate-45 font-semibold">
-          Recommended
+        <div className="absolute top-0 right-0 h-16 w-16 overflow-hidden">
+          <div className="absolute top-4 -right-4 text-xs text-center text-primary-foreground bg-primary px-4 py-0.5 rotate-45 font-semibold">
+            Recommended
+          </div>
         </div>
       )}
       <div className="flex-grow p-4 flex flex-col items-center justify-center text-center gap-2">
@@ -109,7 +111,7 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
       </AnimatePresence>
       
       <div className="p-2 border-t bg-secondary/30" onClick={(e) => e.stopPropagation()}>
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
         {quantity > 0 ? (
             <motion.div
               key="quantity-controls"
