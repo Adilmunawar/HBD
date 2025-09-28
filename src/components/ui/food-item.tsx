@@ -142,7 +142,7 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Button variant="outline" size="sm" className="w-full h-8">
+            <Button variant="outline" size="sm" className="w-full h-8" onClick={onAdd}>
               <Plus className="mr-2 h-4 w-4"/>
               Add
             </Button>
