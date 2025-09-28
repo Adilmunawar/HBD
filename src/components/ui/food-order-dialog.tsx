@@ -11,7 +11,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { LiquidButton } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { FoodItem } from '@/components/ui/food-item';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -239,9 +239,9 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
               animate={{ scale: subtotal > 0 ? 1 : 0.8, opacity: subtotal > 0 ? 1 : 0.5 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              <LiquidButton size="lg" onClick={() => onProceed(subtotal)} disabled={subtotal === 0}>
+              <Button size="lg" onClick={() => onProceed(subtotal)} disabled={subtotal === 0}>
                 Proceed
-              </LiquidButton>
+              </Button>
             </motion.div>
           </div>
         </DialogFooter>

@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { Wallet, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
-import { Button, LiquidButton } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
@@ -210,11 +210,11 @@ function PaymentComponent() {
                   </AnimatePresence>
                 </Tabs>
                 <div className="mt-6 flex justify-between items-center">
-                  <LiquidButton variant="outline" size="lg" onClick={() => router.back()}>
-                    <ArrowLeft className="mr-2" />
+                  <Button variant="outline" size="lg" onClick={() => router.back()}>
+                    <ArrowLeft className="mr-2 h-5 w-5" />
                     Go Back
-                  </LiquidButton>
-                  <LiquidButton onClick={handleProceed} disabled={isPaying || amount === 0} size="lg">
+                  </Button>
+                  <Button onClick={handleProceed} disabled={isPaying || amount === 0} size="lg">
                     {isPaying ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -223,10 +223,10 @@ function PaymentComponent() {
                     ) : (
                       <>
                         Complete Order
-                        <ChevronsRight className="ml-2" />
+                        <ChevronsRight className="ml-2 h-5 w-5" />
                       </>
                     )}
-                  </LiquidButton>
+                  </Button>
                 </div>
               </CardContent>
             </Card>

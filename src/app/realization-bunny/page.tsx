@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { FoodOrderDialog } from '@/components/ui/food-order-dialog';
-import { LiquidButton } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 export default function RealizationBunnyPage() {
@@ -63,15 +63,15 @@ export default function RealizationBunnyPage() {
         <p className="mt-4 text-2xl font-bold text-foreground text-center">
           Ajj tu apka birhtday haiiii
         </p>
-        <LiquidButton
+        <Button
           variant="outline"
           size="lg"
           className="mt-8"
           onClick={() => setIsDialogOpen(true)}
         >
           Hann Hai
-          <ArrowRight />
-        </LiquidButton>
+          <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
         <FoodOrderDialog
           open={isDialogOpen}
           onOpenChange={setIsDialogOpen}

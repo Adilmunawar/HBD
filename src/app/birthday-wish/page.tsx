@@ -2,7 +2,7 @@
 "use client";
 
 import Image from 'next/image';
-import { LiquidButton } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Home } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -42,12 +42,12 @@ export default function BirthdayWishPage() {
           Wishing you a day filled with love, joy, and laughter. Thank you for everything!
         </p>
         <div>
-          <LiquidButton asChild variant="outline" size="lg" className="mt-8">
+          <Button asChild variant="outline" size="lg" className="mt-8">
             <Link href="/">
-              <Home />
+              <Home className="mr-2 h-5 w-5" />
               Go Home
             </Link>
-          </LiquidButton>
+          </Button>
         </div>
       </main>
     </div>
