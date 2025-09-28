@@ -174,7 +174,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-2xl p-0 flex flex-col h-[90vh] max-h-[90vh]">
         <DialogHeader className="p-6 pb-2">
-          <DialogTitle>Aise kahan ja rahy ho agy agy?</DialogTitle>
+          <DialogTitle>Aise kahan ja rahain hain agy agyy?</DialogTitle>
           <DialogDescription>
             Kuch khilao mujhe. Select items to add them to the cart.
           </DialogDescription>
