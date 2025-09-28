@@ -3,10 +3,9 @@ import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
-import { Spotlight } from "./spotlight"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 relative",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 relative overflow-hidden",
   {
     variants: {
       variant: {
@@ -46,14 +45,34 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
+    const internalRef = React.useRef<HTMLButtonElement>(null);
+    const combinedRef = (ref || internalRef) as React.RefObject<HTMLButtonElement>;
+
+    React.useEffect(() => {
+        const button = combinedRef.current;
+        if (!button) return;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            button.style.setProperty('--mouse-x', `${x}px`);
+            button.style.setProperty('--mouse-y', `${y}px`);
+        };
+
+        button.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            button.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [combinedRef]);
+    
     return (
-      <Spotlight className={cn(buttonVariants({ variant: 'default', size, className: 'p-0 border-none' }), className)}>
         <Comp
-          className={cn(buttonVariants({ variant, size, className }), 'w-full h-full bg-transparent')}
-          ref={ref}
+          className={cn(buttonVariants({ variant, size, className }), 'before:absolute before:inset-0 before:bg-[radial-gradient(400px_circle_at_var(--mouse-x)_var(--mouse-y),hsl(var(--primary)/0.25),transparent_80%)] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100')}
+          ref={combinedRef}
           {...props}
         />
-      </Spotlight>
     )
   }
 )
