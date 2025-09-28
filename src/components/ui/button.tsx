@@ -11,13 +11,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary/90 text-primary-foreground hover:bg-primary/80 border border-primary",
+          "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
-          "bg-destructive/90 text-destructive-foreground hover:bg-destructive/80 border border-destructive",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background/80 hover:bg-accent hover:text-accent-foreground",
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary:
-          "bg-secondary/90 text-secondary-foreground hover:bg-secondary/80 border border-secondary",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/90",
         ghost:
           "hover:bg-accent hover:text-accent-foreground",
         link:
@@ -100,7 +100,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         <Comp
           className={cn(
               buttonVariants({ variant, size, className }), 
-              'before:absolute before:inset-0 before:bg-[radial-gradient(400px_circle_at_var(--mouse-x)_var(--mouse-y),hsl(var(--primary)/0.25),transparent_80%)] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100',
+              'before:absolute before:inset-0 before:z-0 before:bg-[radial-gradient(400px_circle_at_var(--mouse-x)_var(--mouse-y),hsl(var(--primary)/0.2),transparent_80%)] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100',
               'transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]'
           )}
           ref={combinedRef}
@@ -108,12 +108,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           onMouseLeave={handleMouseLeave}
           {...props}
         >
-          <motion.span 
-            className="flex items-center justify-center gap-2"
+          <motion.div
+            className="relative z-10 flex h-full w-full items-center justify-center gap-2"
             style={{ x: translateX, y: translateY }}
           >
             {children}
-          </motion.span>
+          </motion.div>
         </Comp>
     )
   }
