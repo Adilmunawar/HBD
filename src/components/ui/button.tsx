@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 
@@ -43,16 +44,44 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     const internalRef = React.useRef<HTMLButtonElement>(null);
     const combinedRef = (ref || internalRef) as React.RefObject<HTMLButtonElement>;
+
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    const springConfig = { damping: 20, stiffness: 200 };
+    const springX = useSpring(mouseX, springConfig);
+    const springY = useSpring(mouseY, springConfig);
+
+    const translateX = useTransform(springX, [-0.5, 0.5], ['-10%', '10%']);
+    const translateY = useTransform(springY, [-0.5, 0.5], ['-10%', '10%']);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const rect = combinedRef.current?.getBoundingClientRect();
+      if (rect) {
+        const { width, height, left, top } = rect;
+        const x = e.clientX - left;
+        const y = e.clientY - top;
+        const normalizedX = (x / width) - 0.5;
+        const normalizedY = (y / height) - 0.5;
+        mouseX.set(normalizedX);
+        mouseY.set(normalizedY);
+      }
+    };
+    
+    const handleMouseLeave = () => {
+      mouseX.set(0);
+      mouseY.set(0);
+    };
 
     React.useEffect(() => {
         const button = combinedRef.current;
         if (!button) return;
 
-        const handleMouseMove = (e: MouseEvent) => {
+        const handleShine = (e: MouseEvent) => {
             const rect = button.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -60,19 +89,32 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             button.style.setProperty('--mouse-y', `${y}px`);
         };
 
-        button.addEventListener('mousemove', handleMouseMove);
+        button.addEventListener('mousemove', handleShine);
 
         return () => {
-            button.removeEventListener('mousemove', handleMouseMove);
+            button.removeEventListener('mousemove', handleShine);
         };
     }, [combinedRef]);
     
     return (
         <Comp
-          className={cn(buttonVariants({ variant, size, className }), 'before:absolute before:inset-0 before:bg-[radial-gradient(400px_circle_at_var(--mouse-x)_var(--mouse-y),hsl(var(--primary)/0.25),transparent_80%)] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100')}
+          className={cn(
+              buttonVariants({ variant, size, className }), 
+              'before:absolute before:inset-0 before:bg-[radial-gradient(400px_circle_at_var(--mouse-x)_var(--mouse-y),hsl(var(--primary)/0.25),transparent_80%)] before:opacity-0 before:transition-opacity before:duration-300 hover:before:opacity-100',
+              'transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]'
+          )}
           ref={combinedRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
           {...props}
-        />
+        >
+          <motion.span 
+            className="flex items-center justify-center gap-2"
+            style={{ x: translateX, y: translateY }}
+          >
+            {children}
+          </motion.span>
+        </Comp>
     )
   }
 )
