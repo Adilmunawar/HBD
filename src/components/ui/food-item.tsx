@@ -2,7 +2,7 @@
 "use client";
 
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import { Button, LiquidButton } from '@/components/ui/button';
 import { Plus, Minus, Star } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
@@ -128,13 +128,13 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
               exit={{ opacity: 0, y: -10 }}
               className='flex items-center justify-between'
             >
-              <Button variant="outline" size="icon" className="h-8 w-8 rounded-full" onClick={onRemove}>
+              <LiquidButton variant="outline" size="icon" className="h-8 w-8 rounded-full" onClick={onRemove}>
                 <Minus className="h-4 w-4" />
-              </Button>
+              </LiquidButton>
               <span className="w-8 text-center font-bold text-lg text-primary">{quantity}</span>
-              <Button variant="outline" size="icon" className="h-8 w-8 rounded-full" onClick={onAdd}>
+              <LiquidButton variant="outline" size="icon" className="h-8 w-8 rounded-full" onClick={onAdd}>
                 <Plus className="h-4 w-4" />
-              </Button>
+              </LiquidButton>
             </motion.div>
         ) : (
           <motion.div
@@ -142,10 +142,10 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Button variant="outline" className="w-full h-8" onClick={onAdd}>
+            <LiquidButton variant="outline" className="w-full h-8" onClick={onAdd}>
               <Plus className="mr-2 h-4 w-4"/>
               Add
-            </Button>
+            </LiquidButton>
           </motion.div>
         )}
         </AnimatePresence>

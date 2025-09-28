@@ -2,7 +2,7 @@
 "use client";
 
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+import { LiquidButton } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -30,12 +30,12 @@ export default function GigglingBunnyPage() {
         <p className="mt-4 text-2xl font-bold text-foreground">
           haann mujhe pata tha ap hi hongay
         </p>
-        <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
+        <LiquidButton asChild variant="outline" size="lg" className="mt-8">
           <Link href="/thinking-bunny">
             Next
             <ArrowRight />
           </Link>
-        </Button>
+        </LiquidButton>
       </main>
     </div>
   );

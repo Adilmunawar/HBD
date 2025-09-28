@@ -2,7 +2,7 @@
 "use client";
 
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+import { LiquidButton } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useEffect } from 'react';
@@ -25,12 +25,12 @@ export default function Home() {
         <p className="mt-4 text-2xl font-bold text-foreground">
           ye konn hai?
         </p>
-        <Button asChild variant="outline" className="mt-8 bg-transparent hover:bg-primary/10 border-primary text-primary hover:text-primary">
+        <LiquidButton asChild variant="outline" size="lg" className="mt-8">
           <Link href="/cute-bunny">
             Chalo, dekhein kya hai!
             <ArrowRight />
           </Link>
-        </Button>
+        </LiquidButton>
       </main>
     </div>
   );
