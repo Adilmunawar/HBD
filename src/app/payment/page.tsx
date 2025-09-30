@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect, Suspense, useRef } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
 import { Wallet, ArrowLeft, Loader2, ChevronsRight } from 'lucide-react';
@@ -12,6 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { AnimatedCheckIcon } from '@/components/ui/animated-check-icon';
+import { Receipt, type CartItem } from '@/components/ui/receipt';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const EthIcon = () => (
     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="fill-current">
@@ -28,6 +30,7 @@ function PaymentComponent() {
   const { toast } = useToast();
   const [selectedCrypto, setSelectedCrypto] = useState(cryptoOptions[0].id);
   const [isPaying, setIsPaying] = useState(false);
+  const [cart, setCart] = useState<CartItem[]>([]);
   const [amount, setAmount] = useState(0);
 
   const cardRef = useRef<HTMLDivElement>(null);
@@ -53,11 +56,13 @@ function PaymentComponent() {
 
   useEffect(() => {
     const paymentAmount = sessionStorage.getItem('paymentAmount');
+    const paymentCart = sessionStorage.getItem('paymentCart');
+
     if (paymentAmount) {
       setAmount(parseInt(paymentAmount, 10));
-    } else {
-        // If no amount is found, maybe redirect or show a message.
-        // For this flow, we can just let it be 0 and disable the button.
+    }
+    if (paymentCart) {
+      setCart(JSON.parse(paymentCart));
     }
   }, []);
 
@@ -80,23 +85,24 @@ function PaymentComponent() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden animated-gradient flex items-center justify-center p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
         <motion.div 
-          className="hidden md:flex flex-col items-center justify-center"
+          className="flex flex-col items-center justify-center h-full"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <Image
-            src="/payment-thinking.gif"
-            alt="Thinking about payment"
-            width={400}
-            height={400}
-            unoptimized
-          />
-          <p className="mt-4 text-center text-lg text-muted-foreground">
-            Just a moment, we're preparing your secure payment portal...
-          </p>
+          <Card className="w-full max-w-sm h-full flex flex-col shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-primary/20">
+            <CardHeader className="text-center border-b">
+              <CardTitle>Order Summary</CardTitle>
+              <CardDescription>Your birthday treats!</CardDescription>
+            </CardHeader>
+            <ScrollArea className="flex-grow">
+              <CardContent className="p-0">
+                <Receipt items={cart} />
+              </CardContent>
+            </ScrollArea>
+          </Card>
         </motion.div>
         <motion.div 
           className="w-full"
@@ -244,3 +250,5 @@ export default function PaymentPage() {
     </Suspense>
   );
 }
+
+    

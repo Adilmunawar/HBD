@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
-import { FoodOrderDialog } from '@/components/ui/food-order-dialog';
+import { FoodOrderDialog, type CartItem } from '@/components/ui/food-order-dialog';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
@@ -34,8 +34,9 @@ export default function RealizationBunnyPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, [router]);
 
-  const handleProceedToPayment = (total: number) => {
+  const handleProceedToPayment = (total: number, cart: CartItem[]) => {
     sessionStorage.setItem('paymentAmount', total.toString());
+    sessionStorage.setItem('paymentCart', JSON.stringify(cart));
     router.push('/payment');
   };
 
@@ -81,3 +82,5 @@ export default function RealizationBunnyPage() {
     </div>
   );
 }
+
+    

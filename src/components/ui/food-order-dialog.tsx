@@ -52,19 +52,20 @@ const foodItemsList = [
   { id: 'icecream', name: 'Ice Cream', price: 120, icon: <IceCream2 className="h-8 w-8" />, flavors: ['Chocolate', 'Vanilla', 'Strawberry'] },
 ];
 
-type FoodOrderDialogProps = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onProceed: (total: number) => void;
-};
-
-type CartItem = {
+export type CartItem = {
   id: string;
   name: string;
   price: number;
   quantity: number;
   flavor?: string;
 };
+
+type FoodOrderDialogProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onProceed: (total: number, cart: CartItem[]) => void;
+};
+
 
 export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDialogProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -170,7 +171,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
               animate={{ scale: subtotal > 0 ? 1 : 0.8, opacity: subtotal > 0 ? 1 : 0.5 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              <Button size="lg" onClick={() => onProceed(subtotal)} disabled={subtotal === 0}>
+              <Button size="lg" onClick={() => onProceed(subtotal, cart)} disabled={subtotal === 0}>
                 Proceed
               </Button>
             </motion.div>
@@ -180,3 +181,5 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
     </Dialog>
   );
 }
+
+    
