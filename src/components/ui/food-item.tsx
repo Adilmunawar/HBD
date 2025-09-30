@@ -56,7 +56,6 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
     <motion.div
       layout
       ref={ref}
-      data-item-id={item.id}
       animate={controls}
       className="relative flex flex-col justify-between rounded-xl border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-primary/20 cursor-pointer overflow-hidden"
       onClick={quantity === 0 ? onAdd : undefined}
@@ -156,5 +155,3 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
 });
 
 FoodItem.displayName = 'FoodItem';
-
-    
