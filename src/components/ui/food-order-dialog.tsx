@@ -1,8 +1,8 @@
 
 "use client";
 
-import React, { useState, useMemo, createRef } from 'react';
-import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import React, { useState, useMemo, createRef, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Dialog,
   DialogContent,
@@ -68,6 +68,14 @@ type CartItem = {
 
 export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDialogProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const cartRef = useRef<HTMLDivElement>(null);
+  const [cartBounds, setCartBounds] = useState<DOMRect | null>(null);
+
+  useEffect(() => {
+    if (cartRef.current) {
+        setCartBounds(cartRef.current.getBoundingClientRect());
+    }
+  }, []);
   
   const itemRefs = useMemo(() => Array.from({ length: foodItemsList.length }).map(() => createRef<HTMLDivElement>()), []);
 
@@ -112,6 +120,13 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
       prevCart.map((item) => (item.id === itemId ? { ...item, flavor } : item))
     );
   };
+  
+  const onDragEnd = (info: any, item: typeof foodItemsList[0]) => {
+    if (cartBounds && info.point.x > cartBounds.left && info.point.x < cartBounds.right && info.point.y > cartBounds.top && info.point.y < cartBounds.bottom) {
+        handleAddToCart(item);
+    }
+  };
+
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -119,7 +134,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
         <DialogHeader className="p-6 pb-2">
           <DialogTitle>Aise kahan ja rahain hain agy agyy?</DialogTitle>
           <DialogDescription>
-            Kuch khilao mujhe. Select items to add them to the cart.
+            Kuch khilao mujhe. Select items to add them to the cart, or drag them to the cart icon.
           </DialogDescription>
         </DialogHeader>
         
@@ -138,6 +153,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
                   onAdd={() => handleAddToCart(item)}
                   onRemove={() => handleRemoveFromCart(item.id)}
                   onFlavorChange={(flavor) => handleFlavorChange(item.id, flavor)}
+                  onDragEnd={(info) => onDragEnd(info, item)}
                 />
               );
             })}
@@ -147,7 +163,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
         <Separator />
 
         <DialogFooter className="p-4 flex-row justify-between items-center bg-secondary/20">
-          <div className="relative">
+          <motion.div ref={cartRef} className="relative">
               <motion.div>
                   <ShoppingCart className="h-7 w-7 text-primary" />
                   {totalItems > 0 && 
@@ -161,7 +177,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
                       </motion.div>
                   }
               </motion.div>
-          </div>
+          </motion.div>
           <div className="flex items-center gap-4">
             <div className="flex items-baseline gap-2 text-right">
                 <span className="text-sm text-muted-foreground">Subtotal:</span>
