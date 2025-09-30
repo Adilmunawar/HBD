@@ -3,7 +3,7 @@ import './globals.css';
 import ClickSpark from '@/components/ui/click-spark';
 
 export const metadata: Metadata = {
-  title: "Samina's Celebration Station",
+  title: "HBD Miss Samina",
   description: "A special birthday celebration for Miss Samina!",
 };
 
