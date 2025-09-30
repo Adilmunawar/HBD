@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
   Dialog,
@@ -17,7 +17,6 @@ import { NumberTicker } from '@/components/ui/number-ticker';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Popcorn, GlassWater, CupSoda, Cookie, Sandwich, IceCream2, ShoppingCart } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-
 
 const BurgerIcon = () => (
   <svg
@@ -41,7 +40,6 @@ const BurgerIcon = () => (
   </svg>
 );
 
-
 const foodItemsList = [
   { id: 'lays', name: 'Lays', price: 70, icon: <Popcorn className="h-8 w-8" />, flavors: ['Salted', 'French Cheese', 'Yogurt and Herb'], recommendedFlavor: 'Yogurt and Herb' },
   { id: 'juice', name: 'Juice', price: 50, icon: <GlassWater className="h-8 w-8" />, flavors: ['Slice', 'Nestle', 'Fruitien'], recommendedFlavor: 'Slice' },
@@ -63,9 +61,8 @@ export type CartItem = {
 type FoodOrderDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onProceed: (total: number, cart: CartItem[]) => void;
+  onProceed: (total: number) => void;
 };
-
 
 export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDialogProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -111,6 +108,10 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
       prevCart.map((item) => (item.id === itemId ? { ...item, flavor } : item))
     );
   };
+  
+  const handleProceed = () => {
+    onProceed(subtotal);
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -171,7 +172,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
               animate={{ scale: subtotal > 0 ? 1 : 0.8, opacity: subtotal > 0 ? 1 : 0.5 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              <Button size="lg" onClick={() => onProceed(subtotal, cart)} disabled={subtotal === 0}>
+              <Button size="lg" onClick={handleProceed} disabled={subtotal === 0}>
                 Proceed
               </Button>
             </motion.div>
@@ -181,5 +182,3 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
     </Dialog>
   );
 }
-
-    

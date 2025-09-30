@@ -12,8 +12,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { AnimatedCheckIcon } from '@/components/ui/animated-check-icon';
-import { Receipt, type CartItem } from '@/components/ui/receipt';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 const EthIcon = () => (
     <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" className="fill-current">
@@ -30,9 +28,8 @@ function PaymentComponent() {
   const { toast } = useToast();
   const [selectedCrypto, setSelectedCrypto] = useState(cryptoOptions[0].id);
   const [isPaying, setIsPaying] = useState(false);
-  const [cart, setCart] = useState<CartItem[]>([]);
   const [amount, setAmount] = useState(0);
-
+  
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -56,13 +53,8 @@ function PaymentComponent() {
 
   useEffect(() => {
     const paymentAmount = sessionStorage.getItem('paymentAmount');
-    const paymentCart = sessionStorage.getItem('paymentCart');
-
     if (paymentAmount) {
       setAmount(parseInt(paymentAmount, 10));
-    }
-    if (paymentCart) {
-      setCart(JSON.parse(paymentCart));
     }
   }, []);
 
@@ -85,160 +77,140 @@ function PaymentComponent() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden animated-gradient flex items-center justify-center p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
-        <motion.div 
-          className="flex flex-col items-center justify-center h-full"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <Card className="w-full max-w-sm h-full flex flex-col shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-primary/20">
-            <CardHeader className="text-center border-b">
-              <CardTitle>Order Summary</CardTitle>
-              <CardDescription>Your birthday treats!</CardDescription>
-            </CardHeader>
-            <ScrollArea className="flex-grow">
-              <CardContent className="p-0">
-                <Receipt items={cart} />
-              </CardContent>
-            </ScrollArea>
-          </Card>
-        </motion.div>
-        <motion.div 
-          className="w-full"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          style={{ perspective: 800 }}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-        >
-          <motion.div
+      <motion.div 
+        className="w-full max-w-md"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        style={{ perspective: 800 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        <motion.div
             ref={cardRef}
             style={{ rotateX, rotateY, transition: 'transform 0.1s' }}
             className="w-full"
-          >
-            <Card className="w-full shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-primary/20">
-              <CardHeader className="text-center">
-                <CardDescription>Amount Payable</CardDescription>
-                <CardTitle className="text-4xl font-bold text-primary flex justify-center items-baseline">
-                  Rs. <NumberTicker value={amount} />
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Tabs defaultValue="sadapay" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3 bg-muted/50 rounded-lg">
-                    <TabsTrigger value="crypto">Crypto</TabsTrigger>
-                    <TabsTrigger value="sadapay">SadaPay</TabsTrigger>
-                    <TabsTrigger value="recommended" className="text-primary font-bold">Recommended</TabsTrigger>
-                  </TabsList>
-                  
-                  <AnimatePresence mode="wait">
-                    <TabsContent key="crypto" value="crypto">
-                      <motion.div 
+        >
+        <Card className="w-full shadow-2xl rounded-2xl bg-card/80 backdrop-blur-sm border-primary/20">
+          <CardHeader className="text-center">
+            <CardDescription>Amount Payable</CardDescription>
+            <CardTitle className="text-5xl font-bold text-primary flex justify-center items-baseline">
+              Rs. <NumberTicker value={amount} />
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="sadapay" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 bg-muted/50 rounded-lg">
+                <TabsTrigger value="crypto">Crypto</TabsTrigger>
+                <TabsTrigger value="sadapay">SadaPay</TabsTrigger>
+                <TabsTrigger value="recommended" className="text-primary font-bold">Recommended</TabsTrigger>
+              </TabsList>
+              
+              <AnimatePresence mode="wait">
+                <TabsContent key="crypto" value="crypto">
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }} 
+                    animate={{ opacity: 1, x: 0, transition: { staggerChildren: 0.1 } }} 
+                    exit={{ opacity: 0, x: 20 }} 
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div variants={{ initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }}} className="text-center text-sm text-muted-foreground mb-4">Select a currency to view the payment address.</motion.div>
+                    <motion.div variants={{ initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }}} className="flex justify-center gap-4 mb-4">
+                      {cryptoOptions.map(crypto => (
+                        <motion.button
+                          key={crypto.id}
+                          onClick={() => setSelectedCrypto(crypto.id)}
+                          className={`p-3 rounded-lg border-2 transition-all ${selectedCrypto === crypto.id ? 'border-primary bg-primary/10' : 'border-border'}`}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          {crypto.icon}
+                        </motion.button>
+                      ))}
+                    </motion.div>
+                    {selectedCryptoData && (
+                        <AnimatePresence mode="wait">
+                        <motion.div
+                            key={selectedCryptoData.id}
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        >
+                            <div className="p-3 bg-muted/50 rounded-lg text-center">
+                                <p className="font-semibold text-foreground">{selectedCryptoData.name}</p>
+                                <div className="flex items-center justify-center gap-2 mt-2">
+                                    <p className="text-xs text-muted-foreground truncate">{selectedCryptoData.address}</p>
+                                    <AnimatedCheckIcon onCopy={() => handleCopyToClipboard(selectedCryptoData.address)} />
+                                </div>
+                            </div>
+                        </motion.div>
+                        </AnimatePresence>
+                    )}
+                  </motion.div>
+                </TabsContent>
+
+                <TabsContent key="sadapay" value="sadapay">
+                    <motion.div 
                         initial={{ opacity: 0, x: -20 }} 
                         animate={{ opacity: 1, x: 0, transition: { staggerChildren: 0.1 } }} 
                         exit={{ opacity: 0, x: 20 }} 
                         transition={{ duration: 0.3 }}
-                      >
-                        <motion.div variants={{ initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }}} className="text-center text-sm text-muted-foreground mb-4">Select a currency to view the payment address.</motion.div>
-                        <motion.div variants={{ initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }}} className="flex justify-center gap-4 mb-4">
-                          {cryptoOptions.map(crypto => (
-                            <motion.button
-                              key={crypto.id}
-                              onClick={() => setSelectedCrypto(crypto.id)}
-                              className={`p-3 rounded-lg border-2 transition-all ${selectedCrypto === crypto.id ? 'border-primary bg-primary/10' : 'border-border'}`}
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              {crypto.icon}
-                            </motion.button>
-                          ))}
-                        </motion.div>
-                        {selectedCryptoData && (
-                           <AnimatePresence mode="wait">
-                            <motion.div
-                              key={selectedCryptoData.id}
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: 'auto' }}
-                              exit={{ opacity: 0, height: 0 }}
-                              transition={{ duration: 0.3, ease: 'easeInOut' }}
-                            >
-                                <div className="p-3 bg-muted/50 rounded-lg text-center">
-                                    <p className="font-semibold text-foreground">{selectedCryptoData.name}</p>
-                                    <div className="flex items-center justify-center gap-2 mt-2">
-                                        <p className="text-xs text-muted-foreground truncate">{selectedCryptoData.address}</p>
-                                        <AnimatedCheckIcon onCopy={() => handleCopyToClipboard(selectedCryptoData.address)} />
-                                    </div>
-                                </div>
+                    >
+                        <div className="text-center p-6 bg-muted/50 rounded-lg flex flex-col items-center gap-4">
+                            <motion.div variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }}}>
+                                <Image src="/sadapay-logo.png" alt="SadaPay" width={120} height={34} />
                             </motion.div>
-                           </AnimatePresence>
-                        )}
-                      </motion.div>
-                    </TabsContent>
+                            <motion.p variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }}} className="text-sm text-muted-foreground">Transfer to the following account:</motion.p>
+                            <motion.div variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }}} className="flex items-center gap-2 p-2 px-4 bg-background rounded-full">
+                                <p className="text-lg font-bold font-mono text-primary tracking-widest">03244965220</p>
+                                <AnimatedCheckIcon onCopy={() => handleCopyToClipboard('03244965220')} />
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </TabsContent>
 
-                    <TabsContent key="sadapay" value="sadapay">
-                        <motion.div 
-                            initial={{ opacity: 0, x: -20 }} 
-                            animate={{ opacity: 1, x: 0, transition: { staggerChildren: 0.1 } }} 
-                            exit={{ opacity: 0, x: 20 }} 
-                            transition={{ duration: 0.3 }}
-                        >
-                            <div className="text-center p-6 bg-muted/50 rounded-lg flex flex-col items-center gap-4">
-                                <motion.div variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }}}>
-                                    <Image src="/sadapay-logo.png" alt="SadaPay" width={120} height={34} />
-                                </motion.div>
-                                <motion.p variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }}} className="text-sm text-muted-foreground">Transfer to the following account:</motion.p>
-                                <motion.div variants={{ initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }}} className="flex items-center gap-2 p-2 px-4 bg-background rounded-full">
-                                    <p className="text-lg font-bold font-mono text-primary tracking-widest">03244965220</p>
-                                    <AnimatedCheckIcon onCopy={() => handleCopyToClipboard('03244965220')} />
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                    </TabsContent>
-
-                    <TabsContent key="recommended" value="recommended">
-                        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.4, type: 'spring' }}>
-                            <div className="text-center p-8 bg-primary/10 rounded-lg flex flex-col items-center gap-4">
-                                <motion.div
-                                    whileHover={{ scale: 1.1, rotate: 10 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    animate={{ y: [0, -5, 0] }}
-                                    transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                                >
-                                    <Wallet className="h-16 w-16 text-primary" />
-                                </motion.div>
-                                <p className="text-lg font-bold text-foreground">Open your purse, take out the money and give it to me.</p>
-                                <p className="text-sm text-muted-foreground">The fastest and most secure payment method. 100% success rate!</p>
-                            </div>
-                        </motion.div>
-                    </TabsContent>
-                  </AnimatePresence>
-                </Tabs>
-                <div className="mt-6 flex justify-between items-center">
-                  <Button variant="outline" size="lg" onClick={() => router.back()}>
-                    <ArrowLeft className="mr-2 h-5 w-5" />
-                    Go Back
-                  </Button>
-                  <Button onClick={handleProceed} disabled={isPaying || amount === 0} size="lg">
-                    {isPaying ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        Complete Order
-                        <ChevronsRight className="ml-2 h-5 w-5" />
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+                <TabsContent key="recommended" value="recommended">
+                    <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.8 }} transition={{ duration: 0.4, type: 'spring' }}>
+                        <div className="text-center p-8 bg-primary/10 rounded-lg flex flex-col items-center gap-4">
+                            <motion.div
+                                whileHover={{ scale: 1.1, rotate: 10 }}
+                                whileTap={{ scale: 0.9 }}
+                                animate={{ y: [0, -5, 0] }}
+                                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                            >
+                                <Wallet className="h-16 w-16 text-primary" />
+                            </motion.div>
+                            <p className="text-lg font-bold text-foreground">Open your purse, take out the money and give it to me.</p>
+                            <p className="text-sm text-muted-foreground">The fastest and most secure payment method. 100% success rate!</p>
+                        </div>
+                    </motion.div>
+                </TabsContent>
+              </AnimatePresence>
+            </Tabs>
+            <div className="mt-6 flex justify-between items-center">
+              <Button variant="outline" size="lg" onClick={() => router.back()}>
+                <ArrowLeft className="mr-2 h-5 w-5" />
+                Go Back
+              </Button>
+              <Button onClick={handleProceed} disabled={isPaying || amount === 0} size="lg">
+                {isPaying ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    Complete Order
+                    <ChevronsRight className="ml-2 h-5 w-5" />
+                  </>
+                )}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -250,5 +222,3 @@ export default function PaymentPage() {
     </Suspense>
   );
 }
-
-    
