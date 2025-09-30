@@ -31,7 +31,6 @@ type FoodItemProps = {
   onAdd: () => void;
   onRemove: () => void;
   onFlavorChange: (flavor: string) => void;
-  onDragEnd: (info: any) => void;
 };
 
 export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
@@ -40,7 +39,6 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
   onAdd,
   onRemove,
   onFlavorChange,
-  onDragEnd,
 }, ref) => {
   const controls = useAnimation();
   const quantity = cartItem?.quantity || 0;
@@ -48,8 +46,8 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-150, 150], [15, -15]);
-  const rotateY = useTransform(x, [-150, 150], [-15, 15]);
+  const rotateX = useTransform(y, [-150, 150], [10, -10]);
+  const rotateY = useTransform(x, [-150, 150], [-10, 10]);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
@@ -75,11 +73,6 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
 
   return (
     <motion.div
-        drag
-        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-        dragElastic={0.8}
-        onDragEnd={(_event, info) => onDragEnd(info)}
-        className="cursor-grab active:cursor-grabbing"
         style={{ perspective: 800 }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}

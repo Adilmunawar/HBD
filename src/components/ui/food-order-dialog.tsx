@@ -1,8 +1,8 @@
 
 "use client";
 
-import React, { useState, useMemo, createRef, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import {
   Dialog,
   DialogContent,
@@ -68,16 +68,6 @@ type CartItem = {
 
 export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDialogProps) {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const cartRef = useRef<HTMLDivElement>(null);
-  const [cartBounds, setCartBounds] = useState<DOMRect | null>(null);
-
-  useEffect(() => {
-    if (cartRef.current) {
-        setCartBounds(cartRef.current.getBoundingClientRect());
-    }
-  }, []);
-  
-  const itemRefs = useMemo(() => Array.from({ length: foodItemsList.length }).map(() => createRef<HTMLDivElement>()), []);
 
   const subtotal = useMemo(() => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -120,13 +110,6 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
       prevCart.map((item) => (item.id === itemId ? { ...item, flavor } : item))
     );
   };
-  
-  const onDragEnd = (info: any, item: typeof foodItemsList[0]) => {
-    if (cartBounds && info.point.x > cartBounds.left && info.point.x < cartBounds.right && info.point.y > cartBounds.top && info.point.y < cartBounds.bottom) {
-        handleAddToCart(item);
-    }
-  };
-
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -134,7 +117,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
         <DialogHeader className="p-6 pb-2">
           <DialogTitle>Aise kahan ja rahain hain agy agyy?</DialogTitle>
           <DialogDescription>
-            Kuch khilao mujhe. Select items to add them to the cart, or drag them to the cart icon.
+            Kuch khilao mujhe. Select items to add them to the cart.
           </DialogDescription>
         </DialogHeader>
         
@@ -142,18 +125,16 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
 
         <ScrollArea className="flex-grow p-4">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {foodItemsList.map((item, index) => {
+            {foodItemsList.map((item) => {
               const cartItem = cart.find((ci) => ci.id === item.id);
               return (
                 <FoodItem
                   key={item.id}
-                  ref={itemRefs[index]}
                   item={item}
                   cartItem={cartItem}
                   onAdd={() => handleAddToCart(item)}
                   onRemove={() => handleRemoveFromCart(item.id)}
                   onFlavorChange={(flavor) => handleFlavorChange(item.id, flavor)}
-                  onDragEnd={(info) => onDragEnd(info, item)}
                 />
               );
             })}
@@ -163,7 +144,7 @@ export function FoodOrderDialog({ open, onOpenChange, onProceed }: FoodOrderDial
         <Separator />
 
         <DialogFooter className="p-4 flex-row justify-between items-center bg-secondary/20">
-          <motion.div ref={cartRef} className="relative">
+          <motion.div className="relative">
               <motion.div>
                   <ShoppingCart className="h-7 w-7 text-primary" />
                   {totalItems > 0 && 
