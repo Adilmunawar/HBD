@@ -56,8 +56,9 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
     <motion.div
       layout
       ref={ref}
+      data-item-id={item.id}
       animate={controls}
-      className="relative flex flex-col justify-between rounded-lg border bg-card text-card-foreground shadow-sm transition-colors hover:bg-muted/50 cursor-pointer overflow-hidden"
+      className="relative flex flex-col justify-between rounded-xl border bg-card text-card-foreground shadow-sm transition-shadow hover:shadow-primary/20 cursor-pointer overflow-hidden"
       onClick={quantity === 0 ? onAdd : undefined}
     >
       {item.recommendedFlavor && (
@@ -118,7 +119,7 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
         )}
       </AnimatePresence>
       
-      <div className="p-2 border-t bg-secondary/30" onClick={(e) => e.stopPropagation()}>
+      <div className="p-2 border-t bg-card" onClick={(e) => e.stopPropagation()}>
         <AnimatePresence mode="wait">
         {quantity > 0 ? (
             <motion.div
@@ -142,7 +143,7 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <Button variant="outline" size="sm" className="w-full h-8" onClick={onAdd}>
+            <Button variant="outline" size="sm" className="w-full h-9" onClick={onAdd}>
               <Plus className="mr-2 h-4 w-4"/>
               Add
             </Button>
@@ -155,3 +156,5 @@ export const FoodItem = React.forwardRef<HTMLDivElement, FoodItemProps>(({
 });
 
 FoodItem.displayName = 'FoodItem';
+
+    
